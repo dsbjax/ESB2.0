@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="StatusBoard.StatusPageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StatusBoard"
+             mc:Ignorable="d" x:Name="page" Margin="20">
+    <Grid x:Name="imageGrid">
+        <Image x:Name="backgroundImage"
+               Source="{Binding ElementName=page, Path=BackgroundImage}"
+               Height="{Binding ElementName=dock, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}"/>
+        <DockPanel x:Name="dock">
+            <TextBlock DockPanel.Dock="Top" Text="{Binding ElementName=page, Path=Title}" FontSize="24" FontWeight="Bold"/>
+            <TextBlock DockPanel.Dock="Top" Text="{Binding ElementName=page, Path=Description}" FontSize="18"/>
+            <ListView Background="{x:Null}" BorderBrush="{x:Null}"
+                      ItemsSource="{Binding ElementName=page, Path=EquipmentGroups}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:EquipmentIndicatorGroup
+                            Title="{Binding Title}"
+                            Description="{Binding Description}"
+                            Equipment="{Binding Equipment}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+    </Grid>
+</UserControl>

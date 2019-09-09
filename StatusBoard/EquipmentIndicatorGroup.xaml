@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="StatusBoard.EquipmentIndicatorGroup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StatusBoard"
+             mc:Ignorable="d" x:Name="groupIndicator">
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Rectangle Stroke="LightSlateGray" StrokeThickness="3" Fill="LightGray" RadiusX="10" RadiusY="10">
+            <Rectangle.Effect>
+                <DropShadowEffect/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <StackPanel Margin="15">
+            <TextBlock Text="{Binding ElementName=groupIndicator, Path=Title}" FontSize="20" FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding ElementName=groupIndicator, Path=Description}" FontSize="16"
+                       HorizontalAlignment="Center"/>
+            <ListView ItemsSource="{Binding ElementName=groupIndicator, Path=Equipment}" Margin="10" 
+                        Background="{x:Null}" BorderBrush="{x:Null}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Center">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:EquipmentStatusIndicator 
+                            Nomenclature="{Binding Nomenclature}" 
+                            EquipmentStatus="{Binding EquipmentStatus}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </StackPanel>
+    </Grid>
+</UserControl>

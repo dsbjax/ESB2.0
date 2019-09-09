@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Database.DatabaseControls.UserPermissionsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Database.DatabaseControls"
+             mc:Ignorable="d" >
+    <Grid>
+        <GroupBox Header="User Permissions:">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <CheckBox x:Name="updates" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="5" Click="UserPermissionsClicked"/>
+                <CheckBox x:Name="users" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="5" Click="UserPermissionsClicked"/>
+                <CheckBox x:Name="equipment" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="5" Click="UserPermissionsClicked"/>
+                <CheckBox x:Name="statusBoard" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="5" Click="UserPermissionsClicked"/>
+                <CheckBox x:Name="admin" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Margin="5" Click="UserPermissionsClicked"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="Status Updates" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="User Manager" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Text="Equipment Manager" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Status Board Layout Manager" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="Database Administrator" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+            
+    </Grid>
+</UserControl>

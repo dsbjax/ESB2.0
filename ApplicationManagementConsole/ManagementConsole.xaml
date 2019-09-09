@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="ApplicationManagementConsole.ManagementConsole"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ApplicationManagementConsole"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource LabelButton}" x:Key="MenuButtons">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </UserControl.Resources>
+    <DockPanel>
+        <Grid DockPanel.Dock="Left" Width="250" Height="300" >
+            <Rectangle StrokeThickness="5" Stroke="AntiqueWhite" RadiusX="10" RadiusY="10" Margin="15"/>
+            <UniformGrid Columns="1" x:Name="menu" DockPanel.Dock="Left" VerticalAlignment="Center">
+                <Button x:Name="viewReportsButton" 
+                    Style="{StaticResource MenuButtons}" Content=" View Report"
+                    Tag="{Binding ElementName=reportsControl}" Click="ControlSelectClick"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="newEquipmentOutageButton" 
+                    Style="{StaticResource MenuButtons}" Content="New Equipment Outage"
+                    Tag="{Binding ElementName=newEquipmentOutageControl}" Click="ControlSelectClick"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="equipmentOutageUpdateButton"
+                        Style="{StaticResource MenuButtons}" Content="Update Equipment Outages"
+                        Tag="{Binding ElementName=equipmentStatusUpdatesControl}" Click="ControlSelectClick"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="userManagerButton" 
+                    Style="{StaticResource MenuButtons}" Content="User Manager"
+                    Tag="{Binding ElementName=userManagerControl}" Click="ControlSelectClick"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="equipmentManagerButton" 
+                    Style="{StaticResource MenuButtons}" Content="Equipment Manager"
+                    Tag="{Binding ElementName=equipmentManagerControl}" Click="ControlSelectClick"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="statusBoardLayoutButton" 
+                    Style="{StaticResource MenuButtons}" Content="Status Board Layout"
+                    Tag="{Binding ElementName=statusBoardManagerControl}" Click="ControlSelectClick"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="databaseAdministratorButton" 
+                    Style="{StaticResource MenuButtons}" Content="Database Administrator"
+                    Tag="{Binding ElementName=databaseManagerControl}" Click="ControlSelectClick"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </UniformGrid>
+        </Grid>
+        <Grid>
+            <local:Reports x:Name="reportsControl" Visibility="Collapsed"/>
+            <local:StatusUpdates x:Name="newEquipmentOutageControl" Visibility="Collapsed"/>
+            <local:UserManager x:Name="userManagerControl" Visibility="Collapsed"/>
+            <local:EquipmentManager x:Name="equipmentManagerControl" Visibility="Collapsed"/>
+            <local:StatusBoardManager x:Name="statusBoardManagerControl" Visibility="Collapsed"/>
+            <local:DatabaseAdministrator x:Name="databaseManagerControl" Visibility="Collapsed"/>
+            <local:EquipmentStatusUpdatesControl x:Name="equipmentStatusUpdatesControl" Visibility="Collapsed"/>
+        </Grid>
+    </DockPanel>
+
+</UserControl>

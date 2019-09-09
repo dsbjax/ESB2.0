@@ -1,0 +1,15 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ApplicationManagementConsole"
+             xmlns:DatabaseControls="clr-namespace:Database.DatabaseControls;assembly=esb2db" x:Class="ApplicationManagementConsole.EquipmentStatusUpdatesControl"
+             mc:Ignorable="d" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid>
+        <Rectangle Style="{StaticResource ControlBackground}"/>
+
+        <DatabaseControls:EquipmentStatusUpdates Margin="25" x:Name="updatesControl"/>
+
+    </Grid>
+</UserControl>

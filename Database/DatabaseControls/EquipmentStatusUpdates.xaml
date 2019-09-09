@@ -1,0 +1,225 @@
+﻿<UserControl x:Class="Database.DatabaseControls.EquipmentStatusUpdates"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Database.DatabaseControls"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <local:NewEquipmentStatusConverter x:Key="newStatus"/>
+        <local:DisableEndTime x:Key="disableEndDate"/>
+        <local:CreatedByUsername x:Key="createdByUsername"/>
+        <local:NullObjectToBoolean x:Key="nullToDisable"/>
+        <local:EmptyStringToFalse x:Key="nullStringToDisable"/>
+        <local:BooleanInverter x:Key="booleanInverter"/>
+        <local:CancelEventDisable x:Key="cancelEventDisable"/>
+        <local:EventCompleteDisable x:Key="eventCompleteDisable"/>
+        <local:TimeToString x:Key="timeToString"/>
+        <local:DateToString x:Key="dateToString"/>
+        <Style TargetType="ListView">
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Description}" FontSize="12" TextWrapping="Wrap"/>
+                            <StackPanel Visibility="{Binding End, Converter={StaticResource disableEndDate}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Start:"/>
+                                    <TextBlock Text="{Binding Start, StringFormat={}{0:MM/dd/yyyy HHmm}}" Margin="5,0,0,0" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="End:"/>
+                                    <TextBlock Text="{Binding End, StringFormat={}{0:MM/dd/yyyy HHmm}}" Margin="5,0,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </UserControl.Resources>
+    <UniformGrid Columns="1">
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <DockPanel>
+                <TextBlock Text="Outages:" FontSize="16" FontWeight="Bold" Margin="5" DockPanel.Dock="Top"/>
+                <ListView x:Name="outages"/>
+            </DockPanel>
+            <DockPanel IsEnabled="{Binding ElementName=outages, Path=SelectedItem, Converter={StaticResource nullToDisable}}">
+                <Grid Margin="10" DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Text="Title:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,0"
+                           Text="Description:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Text="Created by:"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"
+                         Text="{Binding ElementName=outages, Path=SelectedItem.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="450" TextWrapping="Wrap"
+                           Text="{Binding ElementName=outages, Path=SelectedItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"
+                           Text="{Binding ElementName=outages, Path=SelectedItem.CreatedBy, Converter={StaticResource createdByUsername}}"/>
+                </Grid>
+                <TextBlock Text="Updates:" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10"
+                            IsEnabled="{Binding ElementName=outages, Path=SelectedItem.Completed, Converter={StaticResource booleanInverter}}">
+                    <TextBlock Text="New Update:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="newOutageUpdate" VerticalContentAlignment="Center" TextWrapping="Wrap" Width="350"/>
+                    <StackPanel>
+                        <ComboBox Margin="5" SelectedIndex="{Binding ElementName=scheduledOutages, 
+                            Path=SelectedItem.EquipmentStatus, Converter={StaticResource newStatus}, 
+                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock Text="Operational"/>
+                            <TextBlock Text="Degraded"/>
+                            <TextBlock Text="Down"/>
+                            <TextBlock Text="Off Line"/>
+                        </ComboBox>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox VerticalAlignment="Center" x:Name="completed"/>
+                            <TextBlock Text="Mark Complete" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Content="Update" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                            Click="OutageUpdateClick" IsEnabled="{Binding ElementName=newOutageUpdate, Path=Text, Converter={StaticResource nullStringToDisable}}"/>
+                </StackPanel>
+                <ListView Height="Auto" Width="Auto" VerticalAlignment="Stretch" Margin="10"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ItemsSource="{Binding ElementName=outages, Path=SelectedItem.Updates}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel >
+                                <StackPanel Width="125" DockPanel.Dock="Left">
+                                    <TextBlock Text="{Binding Timestamp, StringFormat={}{0:MM/dd/yyyy HHmm}}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding UpdateBy, Converter={StaticResource createdByUsername}}" FontWeight="Bold"/>
+                                    <Rectangle Height="2" Margin="3" Fill="Black"/>
+                                </StackPanel>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Update}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </DockPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <DockPanel>
+                <TextBlock Text=" Scheduled Outages:" FontSize="16" FontWeight="Bold" Margin="5" DockPanel.Dock="Top"/>
+                <ListView x:Name="scheduledOutages"/>
+            </DockPanel>
+            <StackPanel>
+                <Grid IsEnabled="{Binding ElementName=scheduledOutages, Path=SelectedItem, Converter={StaticResource nullToDisable}}">
+                    <Grid Margin="10" DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Text="Title:"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,0"
+                           Text="Description:"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Text="Created by:"/>
+                        <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"
+                         Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="450" TextWrapping="Wrap"
+                           Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"
+                           Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.CreatedBy, Converter={StaticResource createdByUsername}}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Start Time:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Start, StringFormat={}{0:MM/dd/yyyy HHmm Z}}" />
+                            <TextBlock Text="End Time:" Margin="5,0,0,0"/>
+                            <TextBlock Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.End, StringFormat={}{0:MM/dd/yyyy HHmm Z}}" Margin="5,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </Grid>
+                </Grid>
+                <UniformGrid Columns="2">
+                    <Button Content="Cancel Event" Width="125" IsEnabled="{Binding ElementName=scheduledOutages, Path=SelectedItem, Converter={StaticResource cancelEventDisable}}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Click="CancelEventClick"/>
+                    <Button Content="Event Complete" Width="125" IsEnabled="{Binding ElementName=scheduledOutages, Path=SelectedItem, Converter={StaticResource eventCompleteDisable}}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Click="EventCompleteClick"/>
+                </UniformGrid>
+                <StackPanel IsEnabled="{Binding ElementName=scheduledOutages, Path=SelectedItem, Converter={StaticResource nullToDisable}}">
+                    <Grid HorizontalAlignment="Center" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Start Date:" 
+                               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="startDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" 
+                             Margin="5,0,5,0" Width="100" HorizontalContentAlignment="Center" 
+                                 Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Start, Mode=OneWay, Converter={StaticResource dateToString}}"
+                                 TextChanged="StartDateTextChanged"/>
+                        <TextBlock x:Name="startDatePrompt" Grid.Column="1" Grid.Row="1" 
+                                   HorizontalAlignment="Center" Text="MM/DD/YYYY" FontSize="8"
+                                   Foreground="Black"/>
+                        <TextBlock Grid.Column="2" Grid.Row="0" Text="Start Time:" 
+                               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="startTime" Grid.Column="3" Grid.Row="0" VerticalAlignment="Bottom" 
+                             Margin="5,0,5,0" Width="50" HorizontalContentAlignment="Center" 
+                                 Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Start, Mode=OneWay, Converter={StaticResource timeToString}}"
+                                 TextChanged="StartTimeTextChanged"/>
+                        <TextBlock x:Name="startTimePrompt" Grid.Column="3" Grid.Row="1" 
+                                   HorizontalAlignment="Center" Text="HHMM" FontSize="8"
+                                   Foreground="Black"/>
+
+                        <TextBlock Grid.Column="4" Grid.Row="0" Text="End Date:" 
+                               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="endDate" Grid.Column="5" Grid.Row="0" 
+                             Margin="5,0,5,0" Width="100" HorizontalContentAlignment="Center" 
+                                 Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.End, Mode=OneWay, Converter={StaticResource dateToString}}"
+                                 TextChanged="EndDateTextChanged"/>
+                        <TextBlock x:Name="endDatePrompt" Grid.Column="5" Grid.Row="1" 
+                                   HorizontalAlignment="Center" Text="MM/DD/YYYY" FontSize="8"
+                                   Foreground="Black"/>
+                        <TextBlock Grid.Column="6" Grid.Row="0" Text="End Time:" 
+                               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="endTime" Grid.Column="7" Grid.Row="0" VerticalAlignment="Bottom" 
+                             Margin="5,0,5,0" Width="50" HorizontalContentAlignment="Center" 
+                                 Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.End, Mode=OneWay, Converter={StaticResource timeToString}}"
+                                 TextChanged="EndTimeTextChanged"/>
+                        <TextBlock x:Name="endTimePrompt" Grid.Column="7" Grid.Row="1" 
+                                   HorizontalAlignment="Center" Text="HHMM" FontSize="8"
+                                   Foreground="Black"/>
+                    </Grid>
+                    <Button x:Name="modifyEvent" Content="Change Event Date/Time" Width="150" IsEnabled="False"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Click="ModifyEventClick"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </UniformGrid>
+</UserControl>

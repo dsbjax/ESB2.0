@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d221606d7f7541da9f1ca408695078e4" Name="Diagram1" >
+        <EntityTypeShape EntityType="ESB2Database.User" Width="1.75" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="ESB2Database.UserLogEvent" Width="1.5" PointX="5.375" PointY="1" />
+        <AssociationConnector Association="ESB2Database.UserLogEventUser" />
+        <EntityTypeShape EntityType="ESB2Database.EquipmentSystem" Width="2.25" PointX="0.5" PointY="3.875" />
+        <EntityTypeShape EntityType="ESB2Database.EquipmentGrouping" Width="2.25" PointX="3.875" PointY="3.875" />
+        <EntityTypeShape EntityType="ESB2Database.Equipment" Width="2.125" PointX="7" PointY="3.875" />
+        <AssociationConnector Association="ESB2Database.EquipmentSystemEquipmentGrouping" />
+        <AssociationConnector Association="ESB2Database.EquipmentGroupingEquipment" />
+        <EntityTypeShape EntityType="ESB2Database.Outage" Width="2.25" PointX="0.5" PointY="6.875" />
+        <AssociationConnector Association="ESB2Database.OutageUser" />
+        <AssociationConnector Association="ESB2Database.OutageEquipment" />
+        <EntityTypeShape EntityType="ESB2Database.OutageUpdate" Width="3" PointX="4.25" PointY="8.875" />
+        <AssociationConnector Association="ESB2Database.OutageOutageUpdate" />
+        <AssociationConnector Association="ESB2Database.OutageUpdateUser" />
+        <EntityTypeShape EntityType="ESB2Database.StatusPageGrouping" Width="2.625" PointX="4.125" PointY="12.125" />
+        <AssociationConnector Association="ESB2Database.StatusPageGroupingEquipment" />
+        <EntityTypeShape EntityType="ESB2Database.StatusPage" Width="2.375" PointX="0.5" PointY="12.125" />
+        <AssociationConnector Association="ESB2Database.StatusPageStatusPageGrouping" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

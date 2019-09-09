@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Database;
+using Reports;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +25,34 @@ namespace ESB2
     {
         public MainWindow()
         {
+            ESB2db.InitializeDatabase();
             InitializeComponent();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case Key.F2:
+                    DatabaseAccess.Login();
+                    break;
+
+                case Key.Escape:
+                    DatabaseAccess.Logout();
+                    break;
+
+                case Key.F10:
+                    StatusReport.PrintReport();
+                    break;
+            }
+
+            base.OnKeyDown(e);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            ESB2db.Save();
+            base.OnClosing(e);
         }
     }
 }

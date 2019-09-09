@@ -4,6 +4,60 @@
              xmlns:local="clr-namespace:ESB2"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/dsbwpflib;component/MyResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Rectangle" x:Key="DialogBackground">
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="RadiusX" Value="10"/>
+                <Setter Property="RadiusY" Value="10"/>
+                <Setter Property="StrokeThickness" Value="3"/>
+                <Setter Property="Stroke" Value="WhiteSmoke"/>
+                <Setter Property="Fill">
+                    <Setter.Value>
+                        <RadialGradientBrush Center="0.1,0.1" GradientOrigin=".1,.1" RadiusX="0.9" RadiusY="0.9">
+                            <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}" Offset="0"/>
+                            <GradientStop Color="{DynamicResource {x:Static SystemColors.ControlDarkColorKey}}" Offset="1"/>
+                        </RadialGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="Rectangle" x:Key="ControlBackground">
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="RadiusX" Value="10"/>
+                <Setter Property="RadiusY" Value="10"/>
+                <Setter Property="StrokeThickness" Value="3"/>
+                <Setter Property="Stroke" Value="WhiteSmoke"/>
+                <Setter Property="Fill">
+                    <Setter.Value>
+                        <RadialGradientBrush Center="0.1,0.1" GradientOrigin=".1,.1" RadiusX="0.9" RadiusY="0.9">
+                            <GradientStop Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}" Offset="0"/>
+                            <GradientStop Color="{DynamicResource {x:Static SystemColors.GradientActiveCaptionColorKey}}" Offset="1"/>
+                        </RadialGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="TextBlock" x:Key="DialogText">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style TargetType="Window" x:Key="DialogWindow">
+                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="AllowsTransparency" Value="True"/>
+                <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+                <Setter Property="WindowStyle" Value="None"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

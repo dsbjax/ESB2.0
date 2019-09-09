@@ -1,0 +1,224 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Database.DatabaseControls"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+    x:Class="Database.DatabaseControls.StatusUpdatesControl"
+             mc:Ignorable="d" x:Name="newStatusUpdateContol">
+    <UserControl.Resources>
+        <local:HideEquipmentStatus x:Key="hideEquipmentStatus"/>
+        <Style TargetType="{x:Type ComboBox}" x:Key="largeComboBox">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="250"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <local:DisableEndDateTime x:Key="disableEndDateTimeConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="New Outage" FontSize="24" FontWeight="Bold" Margin="10"/>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Outage Type:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="outageType" Width="175" Margin="10" SelectionChanged="OutageTypeSelectionChanged">
+                    <TextBlock Text="Scheduled Outage"/>
+                    <TextBlock Text="Corrective Maintenance"/>
+                </ComboBox>
+                <StackPanel Margin="10,0,0,0" Orientation="Horizontal" 
+                            Visibility="{Binding ElementName=outageType, Path=SelectedIndex, 
+                    Converter={StaticResource hideEquipmentStatus}}">
+                    <TextBlock Text="Equipment Status:" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="equipmentStatus" Width="175" Margin="10" SelectedIndex="0">
+                        <TextBlock Text="Operational"/>
+                        <TextBlock Text="Degraded"/>
+                        <TextBlock Text="Down"/>
+                        <TextBlock Text="Off Line"/>
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Title:" VerticalAlignment="Center"/>
+                <TextBox x:Name="title" Width="150" Margin="10"/>
+                <TextBlock Text="Description:" VerticalAlignment="Center"/>
+                <TextBox x:Name="description" Width="450" Margin="10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Start Date:" 
+                               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="startDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" 
+                             Margin="5,0,5,0" Width="100" HorizontalContentAlignment="Center" 
+                             TextChanged="StartDateChanged" LostFocus="StartDateLostFocus"/>
+                    <TextBlock x:Name="startDatePrompt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Text="MM/DD/YYYY" FontSize="8"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Start Time:" 
+                               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="startTime" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" 
+                             Margin="5,0,5,0" Width="50" HorizontalContentAlignment="Center" TextChanged="StartTimeTextChanged"/>
+                    <TextBlock x:Name="startTimePrompt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Text="HHMM" FontSize="8"/>
+                </Grid>
+                <Grid IsEnabled="{Binding ElementName=outageType, Path=SelectedIndex, Converter={StaticResource disableEndDateTimeConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="End Date:" 
+                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="endDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" 
+                            Margin="5,0,5,0" Width="100" HorizontalContentAlignment="Center" TextChanged="EndDateChanged"/>
+                    <TextBlock x:Name="endDatePrompt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Text="MM/DD/YYYY" FontSize="8"/>
+                </Grid>
+                <Grid IsEnabled="{Binding ElementName=outageType, Path=SelectedIndex, Converter={StaticResource disableEndDateTimeConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="End Time:" 
+                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="endTime" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" 
+                            Margin="5,0,5,0" Width="50" HorizontalContentAlignment="Center" TextChanged="EndTimeTextChanged"/>
+                    <TextBlock x:Name="endTimePrompt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Text="HHMM" FontSize="8"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" x:Name="timePrompt" Visibility="Collapsed" Margin="10,0,0,0">
+                    <TextBlock Text="Date and time: "/>
+                    <TextBlock x:Name="local" Text="Local"/>
+                    <TextBlock x:Name="utc" Text="UTC"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10" IsEnabled="{Binding ElementName=outageType, Path=SelectedIndex, Converter={StaticResource disableEndDateTimeConverter}}">
+                <CheckBox x:Name="reoccuring" Click="ReoccuringClick"/>
+                <TextBlock Text="Reoccuring Scheduled Outage" Margin="5,0,0,0"/>
+                <StackPanel Orientation="Horizontal" IsEnabled="{Binding ElementName=reoccuring, Path=IsChecked}" Margin="10,0,0,0">
+                    <TextBlock Text="Every:"/>
+                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                        <RadioButton x:Name="dailyPeriod"/>
+                        <TextBlock Text="Day" Margin="5,0,0,0"/>
+                        <RadioButton Margin="10,0,0,0" x:Name="weeklyPeriod"/>
+                        <TextBlock Text="Week" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <Grid Margin="10,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Start Date:" 
+                               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="reoccuranceStartDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" 
+                             Margin="5,0,5,0" Width="100" HorizontalContentAlignment="Center" 
+                             TextChanged="ReoccuringStartDateChanged" LostFocus="StartDateLostFocus"/>
+                        <TextBlock x:Name="reoccurandeStartDatePrompt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Text="MM/DD/YYYY" FontSize="8"/>
+                    </Grid>
+                    <Grid Margin="10,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Start Date:" 
+                               VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="reoccuranceEndDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" 
+                             Margin="5,0,5,0" Width="100" HorizontalContentAlignment="Center" 
+                             TextChanged="ReoccuringEndDateChanged" LostFocus="StartDateLostFocus"/>
+                        <TextBlock x:Name="reoccurandeEndDatePrompt" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Text="MM/DD/YYYY" FontSize="8"/>
+                    </Grid>
+
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Select System:"/>
+                    <ComboBox x:Name="systemComboBox" Style="{StaticResource largeComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Nomenclature}" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Description}" FontSize="12"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="Select Equipment Grouping:"/>
+                    <ComboBox x:Name="equipmentGroupingComboBox" Style="{StaticResource largeComboBox}"
+                          ItemsSource="{Binding SelectedItem.EquipmentGroupings, ElementName=systemComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Description}" FontSize="12"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Margin="10">
+                    <TextBlock DockPanel.Dock="Top" Text="Available Equipment:"/>
+                    <ListView x:Name="availableEquipmentListView"
+                          ItemsSource="{Binding SelectedItem.Equipment, ElementName=equipmentGroupingComboBox}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel MouseDown="AvailableEquipmentMouseDown">
+                                    <TextBlock Text="{Binding Nomenclature}" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Description}" FontSize="12"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Margin="10">
+                    <TextBlock DockPanel.Dock="Top" Text="Selected Equipment:"/>
+                    <ListView x:Name="selectedEquipmentListView">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel MouseDown="SelectedEquipmentMouseDown">
+                                    <TextBlock Text="{Binding Nomenclature}" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Description}" FontSize="12"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="saveUpdateButton" IsEnabled="False" Content="Save Update" 
+                    HorizontalAlignment="Right" Margin="10" Width="150"
+                    Click="SaveUpdateButtonClick"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

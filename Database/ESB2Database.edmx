@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ESB2Database.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ESB2DatabaseStoreContainer">
+    <EntitySet Name="Users" EntityType="ESB2Database.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserLog" EntityType="ESB2Database.Store.UserLog" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EquipmentSystems" EntityType="ESB2Database.Store.EquipmentSystems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EquipmentGroupings" EntityType="ESB2Database.Store.EquipmentGroupings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EquipmentListing" EntityType="ESB2Database.Store.EquipmentListing" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Outages" EntityType="ESB2Database.Store.Outages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OutageUpdates" EntityType="ESB2Database.Store.OutageUpdates" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusPageGroupings" EntityType="ESB2Database.Store.StatusPageGroupings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusPages" EntityType="ESB2Database.Store.StatusPages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OutageEquipment" EntityType="ESB2Database.Store.OutageEquipment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusPageGroupingEquipment" EntityType="ESB2Database.Store.StatusPageGroupingEquipment" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserLogEventUser" Association="ESB2Database.Store.UserLogEventUser">
+      <End Role="UserLogEvent" EntitySet="UserLog" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="EquipmentSystemEquipmentGrouping" Association="ESB2Database.Store.EquipmentSystemEquipmentGrouping">
+      <End Role="EquipmentSystem" EntitySet="EquipmentSystems" />
+      <End Role="EquipmentGrouping" EntitySet="EquipmentGroupings" />
+    </AssociationSet>
+    <AssociationSet Name="EquipmentGroupingEquipment" Association="ESB2Database.Store.EquipmentGroupingEquipment">
+      <End Role="EquipmentGrouping" EntitySet="EquipmentGroupings" />
+      <End Role="Equipment" EntitySet="EquipmentListing" />
+    </AssociationSet>
+    <AssociationSet Name="OutageUser" Association="ESB2Database.Store.OutageUser">
+      <End Role="Outage" EntitySet="Outages" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OutageEquipment_Outage" Association="ESB2Database.Store.FK_OutageEquipment_Outage">
+      <End Role="Outage" EntitySet="Outages" />
+      <End Role="OutageEquipment" EntitySet="OutageEquipment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OutageEquipment_Equipment" Association="ESB2Database.Store.FK_OutageEquipment_Equipment">
+      <End Role="Equipment" EntitySet="EquipmentListing" />
+      <End Role="OutageEquipment" EntitySet="OutageEquipment" />
+    </AssociationSet>
+    <AssociationSet Name="OutageOutageUpdate" Association="ESB2Database.Store.OutageOutageUpdate">
+      <End Role="Outage" EntitySet="Outages" />
+      <End Role="OutageUpdate" EntitySet="OutageUpdates" />
+    </AssociationSet>
+    <AssociationSet Name="OutageUpdateUser" Association="ESB2Database.Store.OutageUpdateUser">
+      <End Role="OutageUpdate" EntitySet="OutageUpdates" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StatusPageGroupingEquipment_StatusPageGrouping" Association="ESB2Database.Store.FK_StatusPageGroupingEquipment_StatusPageGrouping">
+      <End Role="StatusPageGrouping" EntitySet="StatusPageGroupings" />
+      <End Role="StatusPageGroupingEquipment" EntitySet="StatusPageGroupingEquipment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StatusPageGroupingEquipment_Equipment" Association="ESB2Database.Store.FK_StatusPageGroupingEquipment_Equipment">
+      <End Role="Equipment" EntitySet="EquipmentListing" />
+      <End Role="StatusPageGroupingEquipment" EntitySet="StatusPageGroupingEquipment" />
+    </AssociationSet>
+    <AssociationSet Name="StatusPageStatusPageGrouping" Association="ESB2Database.Store.StatusPageStatusPageGrouping">
+      <End Role="StatusPage" EntitySet="StatusPages" />
+      <End Role="StatusPageGrouping" EntitySet="StatusPageGroupings" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" Nullable="false" />
+    <Property Name="Lastname" Type="nvarchar" Nullable="false" />
+    <Property Name="Firstname" Type="nvarchar" Nullable="false" />
+    <Property Name="Password" Type="varbinary" Nullable="false" />
+    <Property Name="UserPermission" Type="int" Nullable="false" />
+    <Property Name="AccountStatus" Type="int" Nullable="false" />
+    <Property Name="AccountLocked" Type="datetime" Nullable="false" />
+    <Property Name="FailedLoginCounter" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="UserEvent" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EquipmentSystems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nomenclature" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EquipmentGroupings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="EquipmentSystemId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EquipmentListing">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nomenclature" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="EquipmentGroupingId" Type="int" Nullable="false" />
+    <Property Name="EquipmentStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Outages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="OutageType" Type="int" Nullable="false" />
+    <Property Name="Completed" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Canceled" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Start" Type="datetime" Nullable="false" />
+    <Property Name="End" Type="datetime" Nullable="true" />
+    <Property Name="CreatedBy_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OutageUpdates">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Update" Type="nvarchar" Nullable="false" />
+    <Property Name="OutageId" Type="int" Nullable="false" />
+    <Property Name="UpdateBy_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusPageGroupings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IsStatusBar" Type="bit" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="StatusPageId" Type="int" Nullable="false" />
+    <Property Name="Index" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusPages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="BackgroundImage" Type="nvarchar" Nullable="false" DefaultValue="None" />
+    <Property Name="IsDisplayed" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Index" Type="int" Nullable="false" DefaultValue="-1" />
+  </EntityType>
+  <EntityType Name="OutageEquipment">
+    <Key>
+      <PropertyRef Name="OutageEquipment_Equipment_Id" />
+      <PropertyRef Name="Equipment_Id" />
+    </Key>
+    <Property Name="OutageEquipment_Equipment_Id" Type="int" Nullable="false" />
+    <Property Name="Equipment_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusPageGroupingEquipment">
+    <Key>
+      <PropertyRef Name="StatusPageGroupingEquipment_Equipment_Id" />
+      <PropertyRef Name="Equipment_Id" />
+    </Key>
+    <Property Name="StatusPageGroupingEquipment_Equipment_Id" Type="int" Nullable="false" />
+    <Property Name="Equipment_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserLogEventUser">
+    <End Role="UserLogEvent" Type="ESB2Database.Store.UserLog" Multiplicity="*" />
+    <End Role="User" Type="ESB2Database.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLogEvent">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EquipmentSystemEquipmentGrouping">
+    <End Role="EquipmentSystem" Type="ESB2Database.Store.EquipmentSystems" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="EquipmentGrouping" Type="ESB2Database.Store.EquipmentGroupings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentSystem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EquipmentGrouping">
+        <PropertyRef Name="EquipmentSystemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EquipmentGroupingEquipment">
+    <End Role="EquipmentGrouping" Type="ESB2Database.Store.EquipmentGroupings" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Equipment" Type="ESB2Database.Store.EquipmentListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentGrouping">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipment">
+        <PropertyRef Name="EquipmentGroupingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OutageUser">
+    <End Role="Outage" Type="ESB2Database.Store.Outages" Multiplicity="*" />
+    <End Role="User" Type="ESB2Database.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Outage">
+        <PropertyRef Name="CreatedBy_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OutageOutageUpdate">
+    <End Role="Outage" Type="ESB2Database.Store.Outages" Multiplicity="1" />
+    <End Role="OutageUpdate" Type="ESB2Database.Store.OutageUpdates" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Outage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OutageUpdate">
+        <PropertyRef Name="OutageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OutageUpdateUser">
+    <End Role="OutageUpdate" Type="ESB2Database.Store.OutageUpdates" Multiplicity="*" />
+    <End Role="User" Type="ESB2Database.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OutageUpdate">
+        <PropertyRef Name="UpdateBy_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatusPageStatusPageGrouping">
+    <End Role="StatusPage" Type="ESB2Database.Store.StatusPages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="StatusPageGrouping" Type="ESB2Database.Store.StatusPageGroupings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusPage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatusPageGrouping">
+        <PropertyRef Name="StatusPageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OutageEquipment_Outage">
+    <End Role="Outage" Type="ESB2Database.Store.Outages" Multiplicity="1" />
+    <End Role="OutageEquipment" Type="ESB2Database.Store.OutageEquipment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Outage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OutageEquipment">
+        <PropertyRef Name="OutageEquipment_Equipment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OutageEquipment_Equipment">
+    <End Role="OutageEquipment" Type="ESB2Database.Store.OutageEquipment" Multiplicity="*" />
+    <End Role="Equipment" Type="ESB2Database.Store.EquipmentListing" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Equipment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OutageEquipment">
+        <PropertyRef Name="Equipment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StatusPageGroupingEquipment_StatusPageGrouping">
+    <End Role="StatusPageGrouping" Type="ESB2Database.Store.StatusPageGroupings" Multiplicity="1" />
+    <End Role="StatusPageGroupingEquipment" Type="ESB2Database.Store.StatusPageGroupingEquipment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusPageGrouping">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatusPageGroupingEquipment">
+        <PropertyRef Name="StatusPageGroupingEquipment_Equipment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StatusPageGroupingEquipment_Equipment">
+    <End Role="StatusPageGroupingEquipment" Type="ESB2Database.Store.StatusPageGroupingEquipment" Multiplicity="*" />
+    <End Role="Equipment" Type="ESB2Database.Store.EquipmentListing" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Equipment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatusPageGroupingEquipment">
+        <PropertyRef Name="Equipment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ESB2Database" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ESB2DatabaseContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="ESB2Database.User" />
+          <EntitySet Name="UserLog" EntityType="ESB2Database.UserLogEvent" />
+          <AssociationSet Name="UserLogEventUser" Association="ESB2Database.UserLogEventUser">
+            <End Role="UserLogEvent" EntitySet="UserLog" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="EquipmentSystems" EntityType="ESB2Database.EquipmentSystem" />
+          <EntitySet Name="EquipmentGroupings" EntityType="ESB2Database.EquipmentGrouping" />
+          <EntitySet Name="EquipmentListing" EntityType="ESB2Database.Equipment" />
+          <AssociationSet Name="EquipmentSystemEquipmentGrouping" Association="ESB2Database.EquipmentSystemEquipmentGrouping">
+            <End Role="EquipmentSystem" EntitySet="EquipmentSystems" />
+            <End Role="EquipmentGrouping" EntitySet="EquipmentGroupings" />
+          </AssociationSet>
+          <AssociationSet Name="EquipmentGroupingEquipment" Association="ESB2Database.EquipmentGroupingEquipment">
+            <End Role="EquipmentGrouping" EntitySet="EquipmentGroupings" />
+            <End Role="Equipment" EntitySet="EquipmentListing" />
+          </AssociationSet>
+          <EntitySet Name="Outages" EntityType="ESB2Database.Outage" />
+          <AssociationSet Name="OutageUser" Association="ESB2Database.OutageUser">
+            <End Role="Outage" EntitySet="Outages" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="OutageEquipment" Association="ESB2Database.OutageEquipment">
+            <End Role="Outage" EntitySet="Outages" />
+            <End Role="Equipment" EntitySet="EquipmentListing" />
+          </AssociationSet>
+          <EntitySet Name="OutageUpdates" EntityType="ESB2Database.OutageUpdate" />
+          <AssociationSet Name="OutageOutageUpdate" Association="ESB2Database.OutageOutageUpdate">
+            <End Role="Outage" EntitySet="Outages" />
+            <End Role="OutageUpdate" EntitySet="OutageUpdates" />
+          </AssociationSet>
+          <AssociationSet Name="OutageUpdateUser" Association="ESB2Database.OutageUpdateUser">
+            <End Role="OutageUpdate" EntitySet="OutageUpdates" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="StatusPageGroupings" EntityType="ESB2Database.StatusPageGrouping" />
+          <AssociationSet Name="StatusPageGroupingEquipment" Association="ESB2Database.StatusPageGroupingEquipment">
+            <End Role="StatusPageGrouping" EntitySet="StatusPageGroupings" />
+            <End Role="Equipment" EntitySet="EquipmentListing" />
+          </AssociationSet>
+          <EntitySet Name="StatusPages" EntityType="ESB2Database.StatusPage" />
+          <AssociationSet Name="StatusPageStatusPageGrouping" Association="ESB2Database.StatusPageStatusPageGrouping">
+            <End Role="StatusPage" EntitySet="StatusPages" />
+            <End Role="StatusPageGrouping" EntitySet="StatusPageGroupings" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Lastname" Type="String" Nullable="false" />
+          <Property Name="Firstname" Type="String" Nullable="false" />
+          <Property Name="Password" Type="Binary" Nullable="false" />
+          <Property Name="UserPermission" Type="ESB2Database.UserPermissions" Nullable="false" />
+          <Property Name="AccountStatus" Type="ESB2Database.AccountStatus" Nullable="false" />
+          <Property Name="AccountLocked" Type="DateTime" Nullable="false" />
+          <Property Name="FailedLoginCounter" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Outages" Relationship="ESB2Database.OutageUser" FromRole="User" ToRole="Outage" />
+        </EntityType>
+        <EnumType Name="UserPermissions" IsFlags="true">
+          <Member Name="ReportViewer" Value="1" />
+          <Member Name="StatusUpdates" Value="2" />
+          <Member Name="UserManager" Value="4" />
+          <Member Name="EquipmentManager" Value="8" />
+          <Member Name="StatusBoardManager" Value="16" />
+          <Member Name="DatabaseAdmin" Value="32" />
+        </EnumType>
+        <EnumType Name="AccountStatus" IsFlags="true">
+          <Member Name="AccountDisabled" Value="1" />
+          <Member Name="AccountLocked" Value="2" />
+          <Member Name="UserMustChangePassword" Value="4" />
+          <Member Name="AccountValid" Value="0" />
+        </EnumType>
+        <EntityType Name="UserLogEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="UserEvent" Type="ESB2Database.UserEvents" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ESB2Database.UserLogEventUser" FromRole="UserLogEvent" ToRole="User" />
+        </EntityType>
+        <EnumType Name="UserEvents">
+          <Member Name="AccountCreated" />
+          <Member Name="UserLogin" />
+          <Member Name="UserLogout" />
+          <Member Name="FailedLogin" />
+          <Member Name="AccountLocked" />
+          <Member Name="AccountUnlocked" />
+          <Member Name="AccountDisabled" />
+          <Member Name="PasswordChanged" />
+        </EnumType>
+        <Association Name="UserLogEventUser">
+          <End Type="ESB2Database.UserLogEvent" Role="UserLogEvent" Multiplicity="*" />
+          <End Type="ESB2Database.User" Role="User" Multiplicity="1" />
+        </Association>
+        <EntityType Name="EquipmentSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nomenclature" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="EquipmentGroupings" Relationship="ESB2Database.EquipmentSystemEquipmentGrouping" FromRole="EquipmentSystem" ToRole="EquipmentGrouping" />
+        </EntityType>
+        <EntityType Name="EquipmentGrouping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="EquipmentSystemId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Equipment" Relationship="ESB2Database.EquipmentGroupingEquipment" FromRole="EquipmentGrouping" ToRole="Equipment" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nomenclature" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="EquipmentGroupingId" Type="Int32" Nullable="false" />
+          <Property Name="EquipmentStatus" Type="ESB2Database.EquipmentStatus" Nullable="false" />
+        </EntityType>
+        <Association Name="EquipmentSystemEquipmentGrouping">
+          <End Type="ESB2Database.EquipmentSystem" Role="EquipmentSystem" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ESB2Database.EquipmentGrouping" Role="EquipmentGrouping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EquipmentGrouping">
+              <PropertyRef Name="EquipmentSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EquipmentGroupingEquipment">
+          <End Type="ESB2Database.EquipmentGrouping" Role="EquipmentGrouping" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ESB2Database.Equipment" Role="Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentGrouping">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="EquipmentGroupingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="EquipmentStatus" IsFlags="false">
+          <Member Name="Operational" Value="0" />
+          <Member Name="Degraded" Value="1" />
+          <Member Name="Down" Value="2" />
+          <Member Name="OffLine" Value="3" />
+        </EnumType>
+        <EntityType Name="Outage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="OutageType" Type="ESB2Database.OutageType" Nullable="false" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Canceled" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Start" Type="DateTime" Nullable="false" />
+          <Property Name="End" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="CreatedBy" Relationship="ESB2Database.OutageUser" FromRole="Outage" ToRole="User" />
+          <NavigationProperty Name="Equipment" Relationship="ESB2Database.OutageEquipment" FromRole="Outage" ToRole="Equipment" />
+          <NavigationProperty Name="Updates" Relationship="ESB2Database.OutageOutageUpdate" FromRole="Outage" ToRole="OutageUpdate" />
+        </EntityType>
+        <EnumType Name="OutageType">
+          <Member Name="ScheduledMaintenance" />
+          <Member Name="CorrectiveMaintenance" />
+        </EnumType>
+        <Association Name="OutageUser">
+          <End Type="ESB2Database.Outage" Role="Outage" Multiplicity="*" />
+          <End Type="ESB2Database.User" Role="User" Multiplicity="1" />
+        </Association>
+        <Association Name="OutageEquipment">
+          <End Type="ESB2Database.Outage" Role="Outage" Multiplicity="*" />
+          <End Type="ESB2Database.Equipment" Role="Equipment" Multiplicity="*" />
+        </Association>
+        <EntityType Name="OutageUpdate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="Update" Type="String" Nullable="false" />
+          <Property Name="OutageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UpdateBy" Relationship="ESB2Database.OutageUpdateUser" FromRole="OutageUpdate" ToRole="User" />
+        </EntityType>
+        <Association Name="OutageOutageUpdate">
+          <End Type="ESB2Database.Outage" Role="Outage" Multiplicity="1" />
+          <End Type="ESB2Database.OutageUpdate" Role="OutageUpdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Outage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OutageUpdate">
+              <PropertyRef Name="OutageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OutageUpdateUser">
+          <End Type="ESB2Database.OutageUpdate" Role="OutageUpdate" Multiplicity="*" />
+          <End Type="ESB2Database.User" Role="User" Multiplicity="1" />
+        </Association>
+        <EntityType Name="StatusPageGrouping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsStatusBar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Equipment" Relationship="ESB2Database.StatusPageGroupingEquipment" FromRole="StatusPageGrouping" ToRole="Equipment" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="StatusPageId" Type="Int32" Nullable="false" />
+          <Property Name="Index" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="StatusPageGroupingEquipment">
+          <End Type="ESB2Database.StatusPageGrouping" Role="StatusPageGrouping" Multiplicity="*" />
+          <End Type="ESB2Database.Equipment" Role="Equipment" Multiplicity="*" />
+        </Association>
+        <EntityType Name="StatusPage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="BackgroundImage" Type="String" Nullable="false" DefaultValue="None" />
+          <Property Name="IsDisplayed" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="Index" Type="Int32" Nullable="false" DefaultValue="-1" />
+          <NavigationProperty Name="StatusPageGroupings" Relationship="ESB2Database.StatusPageStatusPageGrouping" FromRole="StatusPage" ToRole="StatusPageGrouping" />
+        </EntityType>
+        <Association Name="StatusPageStatusPageGrouping">
+          <End Type="ESB2Database.StatusPage" Role="StatusPage" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ESB2Database.StatusPageGrouping" Role="StatusPageGrouping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusPage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusPageGrouping">
+              <PropertyRef Name="StatusPageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ESB2DatabaseStoreContainer" CdmEntityContainer="ESB2DatabaseContainer">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserPermission" ColumnName="UserPermission" />
+          <ScalarProperty Name="AccountStatus" ColumnName="AccountStatus" />
+          <ScalarProperty Name="AccountLocked" ColumnName="AccountLocked" />
+          <ScalarProperty Name="FailedLoginCounter" ColumnName="FailedLoginCounter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLog">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.UserLogEvent)">
+        <MappingFragment StoreEntitySet="UserLog">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="UserEvent" ColumnName="UserEvent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipmentSystems">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.EquipmentSystem)">
+        <MappingFragment StoreEntitySet="EquipmentSystems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nomenclature" ColumnName="Nomenclature" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipmentGroupings">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.EquipmentGrouping)">
+        <MappingFragment StoreEntitySet="EquipmentGroupings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EquipmentSystemId" ColumnName="EquipmentSystemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipmentListing">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.Equipment)">
+        <MappingFragment StoreEntitySet="EquipmentListing">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nomenclature" ColumnName="Nomenclature" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EquipmentGroupingId" ColumnName="EquipmentGroupingId" />
+          <ScalarProperty Name="EquipmentStatus" ColumnName="EquipmentStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Outages">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.Outage)">
+        <MappingFragment StoreEntitySet="Outages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OutageType" ColumnName="OutageType" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="Canceled" ColumnName="Canceled" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="End" ColumnName="End" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OutageUpdates">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.OutageUpdate)">
+        <MappingFragment StoreEntitySet="OutageUpdates">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Update" ColumnName="Update" />
+          <ScalarProperty Name="OutageId" ColumnName="OutageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusPageGroupings">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.StatusPageGrouping)">
+        <MappingFragment StoreEntitySet="StatusPageGroupings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsStatusBar" ColumnName="IsStatusBar" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="StatusPageId" ColumnName="StatusPageId" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusPages">
+      <EntityTypeMapping TypeName="IsTypeOf(ESB2Database.StatusPage)">
+        <MappingFragment StoreEntitySet="StatusPages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+          <ScalarProperty Name="IsDisplayed" ColumnName="IsDisplayed" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserLogEventUser" TypeName="ESB2Database.UserLogEventUser" StoreEntitySet="UserLog">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="UserLogEvent">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OutageUser" TypeName="ESB2Database.OutageUser" StoreEntitySet="Outages">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="CreatedBy_Id" />
+      </EndProperty>
+      <EndProperty Name="Outage">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OutageEquipment" TypeName="ESB2Database.OutageEquipment" StoreEntitySet="OutageEquipment">
+      <EndProperty Name="Outage">
+        <ScalarProperty Name="Id" ColumnName="OutageEquipment_Equipment_Id" />
+      </EndProperty>
+      <EndProperty Name="Equipment">
+        <ScalarProperty Name="Id" ColumnName="Equipment_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OutageUpdateUser" TypeName="ESB2Database.OutageUpdateUser" StoreEntitySet="OutageUpdates">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="UpdateBy_Id" />
+      </EndProperty>
+      <EndProperty Name="OutageUpdate">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StatusPageGroupingEquipment" TypeName="ESB2Database.StatusPageGroupingEquipment" StoreEntitySet="StatusPageGroupingEquipment">
+      <EndProperty Name="StatusPageGrouping">
+        <ScalarProperty Name="Id" ColumnName="StatusPageGroupingEquipment_Equipment_Id" />
+      </EndProperty>
+      <EndProperty Name="Equipment">
+        <ScalarProperty Name="Id" ColumnName="Equipment_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

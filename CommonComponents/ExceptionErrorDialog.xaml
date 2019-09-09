@@ -1,0 +1,46 @@
+﻿<Window x:Class="CommonComponents.ExceptionErrorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommonComponents"
+        mc:Ignorable="d" Background="{x:Null}" AllowsTransparency="True" 
+        WindowStyle="None" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Rectangle Style="{StaticResource DialogBackground}"/>
+        <StackPanel Margin="10">
+            <TextBlock Text="Application Exception Error" HorizontalAlignment="Center"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Calling Function:"/>
+                <TextBlock x:Name="callingFunction" Grid.Column="1" Grid.Row="0"/>
+                <Label Grid.Column="0" Grid.Row="1" Content="Exception Type:"/>
+                <TextBlock x:Name="exceptionType" Grid.Column="1" Grid.Row="1"/>
+                <Label Grid.Column="0" Grid.Row="2" Content="Exception Message:"/>
+                <TextBlock x:Name="exceptionMessage" Grid.Column="1" Grid.Row="2"/>
+            </Grid>
+            <TextBlock x:Name="stackTrace" Visibility="Collapsed" Margin="10"/>
+            <Button Style="{StaticResource LabelButton}" Content="View Statck Trace"/>
+            <Button Style="{StaticResource LabelButton}" Content="&lt;Esc&gt; to close" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

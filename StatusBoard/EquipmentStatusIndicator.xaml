@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="StatusBoard.EquipmentStatusIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StatusBoard"
+             mc:Ignorable="d" Margin="5" Height="50" x:Name="indicator">
+    <UserControl.Resources>
+        <local:GetColor x:Key="color"/>
+        <local:GetDarkColor x:Key="darkColor"/>
+    </UserControl.Resources>
+    <Grid>
+        <Ellipse Stroke="White" StrokeThickness="3">
+            <Ellipse.Effect>
+                <DropShadowEffect BlurRadius="15" ShadowDepth="0" 
+                                  Color="{Binding ElementName=indicator, Path=EquipmentStatus, Converter={StaticResource color}}"/>
+            </Ellipse.Effect>
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="{Binding ElementName=indicator, Path=EquipmentStatus, Converter={StaticResource darkColor}}"  Offset=".9"/>
+                    <GradientStop Color="{Binding ElementName=indicator, Path=EquipmentStatus, Converter={StaticResource color}}" Offset=".1"/>
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+        <TextBlock Text="{Binding ElementName=indicator, Path=Nomenclature}" 
+                   FontSize="20" Margin="15" Foreground="White" FontWeight="Bold"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+</UserControl>
