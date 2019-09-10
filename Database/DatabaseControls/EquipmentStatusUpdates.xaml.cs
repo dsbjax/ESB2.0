@@ -48,6 +48,12 @@ namespace Database.DatabaseControls
             });
             selected.Completed = (bool)completed.IsChecked;
 
+            if (selected.Completed)
+                selected.End = DateTime.Now;
+
+            foreach (var equipment in selected.Equipment)
+                equipment.EquipmentStatus = (EquipmentStatus)newEquipmentStatus.SelectedIndex;
+
             newOutageUpdate.Clear();
             completed.IsChecked = false;
 
@@ -307,31 +313,14 @@ namespace Database.DatabaseControls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int i = (int)value;
+            var current  = ((IEnumerable<Equipment>)value).First().EquipmentStatus;
 
-            EquipmentStatus status = EquipmentStatus.Operational;
-
-            switch(i)
-            {
-                case 1:
-                    status = EquipmentStatus.Degraded;
-                    break;
-
-                case 2:
-                    status = EquipmentStatus.Down;
-                    break;
-
-                case 3:
-                    status = EquipmentStatus.OffLine;
-                    break;
-            }
-
-            return status;
+            return (int)current;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int)value;
+            return value;
         }
     }
 

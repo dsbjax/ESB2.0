@@ -41,7 +41,7 @@ namespace ESB2
                     DatabaseAccess.Logout();
                     break;
 
-                case Key.F10:
+                case Key.F4:
                     StatusReport.PrintReport();
                     break;
             }

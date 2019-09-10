@@ -80,9 +80,8 @@
                     <TextBlock Text="New Update:" VerticalAlignment="Center"/>
                     <TextBox x:Name="newOutageUpdate" VerticalContentAlignment="Center" TextWrapping="Wrap" Width="350"/>
                     <StackPanel>
-                        <ComboBox Margin="5" SelectedIndex="{Binding ElementName=scheduledOutages, 
-                            Path=SelectedItem.EquipmentStatus, Converter={StaticResource newStatus}, 
-                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBox x:Name="newEquipmentStatus" Margin="5" SelectedIndex="{Binding ElementName=outages, 
+                            Path=SelectedItem.Equipment, Converter={StaticResource newStatus}, Mode=OneWay}">
                             <TextBlock Text="Operational"/>
                             <TextBlock Text="Degraded"/>
                             <TextBlock Text="Down"/>

@@ -23,6 +23,6 @@
         <TextBlock x:Name="localTime" DockPanel.Dock="Right" Text="HHMM"/>
         <TextBlock DockPanel.Dock="Right" Text="Local:"/>
         <TextBlock x:Name="date" DockPanel.Dock="Right" Text="Date"/>
-        <TextBlock HorizontalAlignment="Center" Text="&lt;F10&gt; To Print Status Report"/>
+        <TextBlock HorizontalAlignment="Center" Text="&lt;F4&gt; To Print Status Report"/>
     </DockPanel>
 </UserControl>
