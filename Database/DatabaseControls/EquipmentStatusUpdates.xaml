@@ -48,7 +48,7 @@
         <StackPanel Orientation="Horizontal" Margin="10">
             <DockPanel>
                 <TextBlock Text="Outages:" FontSize="16" FontWeight="Bold" Margin="5" DockPanel.Dock="Top"/>
-                <ListView x:Name="outages"/>
+                <ListView x:Name="outages" SelectionChanged="Outages_SelectionChanged"/>
             </DockPanel>
             <DockPanel IsEnabled="{Binding ElementName=outages, Path=SelectedItem, Converter={StaticResource nullToDisable}}">
                 <Grid Margin="10" DockPanel.Dock="Top">
@@ -80,8 +80,7 @@
                     <TextBlock Text="New Update:" VerticalAlignment="Center"/>
                     <TextBox x:Name="newOutageUpdate" VerticalContentAlignment="Center" TextWrapping="Wrap" Width="350"/>
                     <StackPanel>
-                        <ComboBox x:Name="newEquipmentStatus" Margin="5" SelectedIndex="{Binding ElementName=outages, 
-                            Path=SelectedItem.Equipment, Converter={StaticResource newStatus}, Mode=OneWay}">
+                        <ComboBox x:Name="newEquipmentStatus" Margin="5">
                             <TextBlock Text="Operational"/>
                             <TextBlock Text="Degraded"/>
                             <TextBlock Text="Down"/>

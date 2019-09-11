@@ -19,15 +19,23 @@ namespace Reports
         {
             var statusReport = DatabaseAccess.GetStatusReport();
             var printDialog = new PrintDialog();
-            var flowDocument = new FlowDocument();
+            var flowDocument = new FlowDocument()
+            {
+                PagePadding = new Thickness(50),
+                ColumnGap = 0,
+                ColumnWidth = printDialog.PrintableAreaWidth
+            };
+
             Paragraph paragraph;
 
             printDialog.ShowDialog();
             
-            paragraph = new Paragraph(new Run("Equipment Status Report\n" + DateTime.Now.ToLongDateString() + "\n" + DateTime.Now.ToShortTimeString())) {
+            paragraph = new Paragraph(new Run("Equipment Status Report\t" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString())) {
                 FontFamily = REPORT_FONT,
                 FontSize = 24,
-                FontWeight = FontWeights.Bold
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0),
+                TextAlignment = TextAlignment.Center
             };
             flowDocument.Blocks.Add(paragraph);
 
@@ -35,7 +43,8 @@ namespace Reports
             {
                 FontFamily = REPORT_FONT,
                 FontSize = 18,
-                FontWeight = FontWeights.Bold
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0,25,0,0)
             };
             flowDocument.Blocks.Add(paragraph);
 
@@ -46,7 +55,8 @@ namespace Reports
             {
                 FontFamily = REPORT_FONT,
                 FontSize = 18,
-                FontWeight = FontWeights.Bold
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0,25,0,0)
             };
             flowDocument.Blocks.Add(paragraph);
 
@@ -56,7 +66,8 @@ namespace Reports
             {
                 FontFamily = REPORT_FONT,
                 FontSize = 18,
-                FontWeight = FontWeights.Bold
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0,25,0,0)
             };
             flowDocument.Blocks.Add(paragraph);
 
@@ -94,8 +105,8 @@ namespace Reports
                 foreach (var outage in active)
                 {
                     para = new Paragraph(new Run(
-                        outage.Title + "\n" + outage.Description + "\n" +
-                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z")))
+                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                        outage.Title + ": " + outage.Description))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -126,8 +137,8 @@ namespace Reports
                 foreach (var outage in today)
                 {
                     para = new Paragraph(new Run(
-                        outage.Title + "\n" + outage.Description + "\n" +
-                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z")))
+                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                        outage.Title + ": " + outage.Description))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -159,8 +170,8 @@ namespace Reports
                 foreach (var outage in tomorrow)
                 {
                     para = new Paragraph(new Run(
-                        outage.Title + "\n" + outage.Description + "\n" +
-                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z")))
+                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                        outage.Title + ": " + outage.Description))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -191,8 +202,8 @@ namespace Reports
                 foreach (var outage in next7Days)
                 {
                     para = new Paragraph(new Run(
-                        outage.Title + "\n" + outage.Description + "\n" +
-                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z")))
+                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                        outage.Title + ": " + outage.Description))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -205,31 +216,31 @@ namespace Reports
 
         private static void AddClosedEquipmentOutages(IEnumerable<Outage> statusReport, FlowDocument flowDocument)
         {
-            var currentOutages = statusReport.Where(
+            var closedOutages = statusReport.Where(
                 o => o.OutageType == OutageType.CorrectiveMaintenance &&
                 o.Completed == true)
                 .OrderBy(o => o.Start);
 
-            if (currentOutages.Count() > 0)
-                foreach (var outage in currentOutages)
+            if (closedOutages.Count() > 0)
+                foreach (var outage in closedOutages)
                 {
-                    Paragraph para = new Paragraph(new Run(outage.Title)
+                    Paragraph para = new Paragraph(new Run(outage.Title + ": " + outage.Description))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 14,
-                        FontWeight = FontWeights.Bold
-                    });
+                        FontWeight = FontWeights.Bold,
+                        Margin = new Thickness(0,25,0,0)
+                    };
                     flowDocument.Blocks.Add(para);
 
                     para = new Paragraph(new Run(
-                        outage.Description +
-                        "\nOutage Reported: " + outage.Start.ToString("MM/dd/yyyy HH:mm") +
-                        "\nReported By: " + outage.CreatedBy.Lastname + ", " + outage.CreatedBy.Firstname +
-                        "\nOutage Closed: " + outage.End.Value.ToString("MM/dd/yyyy HH:mm")))
+                        "Outage Reported: " + outage.Start.ToString("MM/dd/yyyy HH:mm") +
+                        "\tOutage Closed: " + outage.End.Value.ToString("MM/dd/yyyy HH:mm") + 
+                        "\nReported By: " + outage.CreatedBy.Lastname + ", " + outage.CreatedBy.Firstname))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
-                        Margin = new Thickness(10, 10, 0, 0)
+                        Margin = new Thickness(0, 2, 0, 0)
                     };
                     flowDocument.Blocks.Add(para);
 
@@ -240,7 +251,7 @@ namespace Reports
                             FontFamily = REPORT_FONT,
                             FontSize = 12,
                             FontWeight = FontWeights.Bold,
-                            Margin = new Thickness(10, 10, 0, 0)
+                            Margin = new Thickness(0, 5, 0, 0)
                         };
                         flowDocument.Blocks.Add(para);
 
@@ -248,12 +259,12 @@ namespace Reports
                         {
                             para = new Paragraph(new Run(
                                 update.Timestamp.ToString("MM/dd/yyyy HH:mm\t") +
-                                update.UpdateBy.Lastname + ", " + update.UpdateBy.Firstname + "\n" +
+                                update.UpdateBy.Lastname + ", " + update.UpdateBy.Firstname + "\t" +
                                 update.Update))
                             {
                                 FontFamily = REPORT_FONT,
                                 FontSize = 12,
-                                Margin = new Thickness(20, 10, 0, 0)
+                                Margin = new Thickness(25, 5, 0, 0)
                             };
                             flowDocument.Blocks.Add(para);
                         }
@@ -285,22 +296,22 @@ namespace Reports
             if(currentOutages.Count() > 0)
                 foreach(var outage in currentOutages)
                 {
-                    Paragraph para = new Paragraph(new Run(outage.Title)
+                    Paragraph para = new Paragraph(new Run(outage.Title + ": " + outage.Description))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 14,
-                        FontWeight = FontWeights.Bold
-                    });
+                        FontWeight = FontWeights.Bold,
+                        Margin = new Thickness(0,25,0,0)
+                    };
                     flowDocument.Blocks.Add(para);
 
                     para = new Paragraph(new Run(
-                        outage.Description + 
-                        "\nOutage Reported: " + outage.Start.ToString("MM/dd/yyyy HH:mm") +
+                        "Outage Reported: " + outage.Start.ToString("MM/dd/yyyy HH:mm") +
                         "\nReported By: " + outage.CreatedBy.Lastname + ", " + outage.CreatedBy.Firstname))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
-                        Margin = new Thickness(10, 10, 0, 0)
+                        Margin = new Thickness(0, 2, 0, 0)
                     };
                     flowDocument.Blocks.Add(para);
 
@@ -311,7 +322,7 @@ namespace Reports
                             FontFamily = REPORT_FONT,
                             FontSize = 12,
                             FontWeight = FontWeights.Bold,
-                            Margin = new Thickness(10, 10, 0, 0)
+                            Margin = new Thickness(0, 5, 0, 0)
                         };
                         flowDocument.Blocks.Add(para);
 
@@ -319,12 +330,12 @@ namespace Reports
                         {
                             para = new Paragraph(new Run(
                                 update.Timestamp.ToString("MM/dd/yyyy HH:mm\t") +
-                                update.UpdateBy.Lastname + ", " + update.UpdateBy.Firstname + "\n" +
+                                update.UpdateBy.Lastname + ", " + update.UpdateBy.Firstname + "\t" +
                                 update.Update))
                             {
                                 FontFamily = REPORT_FONT,
                                 FontSize = 12,
-                                Margin = new Thickness(20,10,0,0)
+                                Margin = new Thickness(25,5,0,0)
                             };
                             flowDocument.Blocks.Add(para);
                         }

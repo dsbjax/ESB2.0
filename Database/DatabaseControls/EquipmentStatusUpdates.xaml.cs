@@ -181,6 +181,11 @@ namespace Database.DatabaseControls
 
         }
 
+        private void Outages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(outages.SelectedItem != null)
+                newEquipmentStatus.SelectedIndex = (int) ((Outage)outages.SelectedItem).Equipment.First().EquipmentStatus;
+        }
     }
 
     public class DisableEndTime : IValueConverter
