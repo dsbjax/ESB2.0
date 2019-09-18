@@ -36,7 +36,8 @@ namespace ApplicationManagementConsole
         {
             if (e.ClickCount == 2)
             {
-                if (!selectedEquipmentListView.Items.Contains(availableEquipmentListView.SelectedItem))
+                if ( pageGroups.SelectedItem != null && statusPages.SelectedItem != null &&
+                    !selectedEquipmentListView.Items.Contains(availableEquipmentListView.SelectedItem))
                 {
                     int pageIndex = ((StatusPage)statusPages.SelectedItem).Id;
                     int groupIndex = ((StatusPageGrouping)pageGroups.SelectedItem).Id;
@@ -109,9 +110,11 @@ namespace ApplicationManagementConsole
             };
 
             ((StatusPage)statusPages.SelectedItem).StatusPageGroupings.Add(newGroup);
-
             var page = statusPages.SelectedItem;
             statusPages.SelectedItem = null;
+
+            DatabaseAccess.GetAllStatusPages();
+
             statusPages.SelectedItem = page;
             pageGroups.SelectedItem = newGroup;
         }

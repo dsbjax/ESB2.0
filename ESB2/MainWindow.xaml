@@ -8,12 +8,12 @@
         mc:Ignorable="d"
         Title="Equipment Status Board 2.0" Height="450" Width="800" WindowState="Maximized">
     <Window.Background>
-        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.DesktopColorKey}}"/>
+        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.AppWorkspaceColorKey}}"/>
     </Window.Background>
     <DockPanel>
         <local:ApplicationStatusBar DockPanel.Dock="Bottom"/>
         <Grid>
-            <StatusBoard:MainStatusBoard/>
+            <StatusBoard:MainStatusBoard Visibility="Visible"/>
             <ApplicationManagementConsole:ManagementConsole Visibility="Collapsed"/>
         </Grid>
     </DockPanel>

@@ -22,16 +22,6 @@ namespace Database.DatabaseControls
     /// </summary>
     public partial class InitailizeDatabase : Window
     {
-        public string DatabaseFilename
-        {
-            get { return fileLocation.Text + "\\" + filename.Text; }
-
-            set {
-                filename.Text = value.Substring(value.LastIndexOf('\\') + 1);
-                fileLocation.Text = value.Substring(0, value.LastIndexOf('\\'));
-            }
-        }
-
         public string Username {  get { return username.Text; } }
         public string Firstname {  get { return firstname.Text; } }
         public string Lastname {  get { return lastname.Text; } }
@@ -40,9 +30,6 @@ namespace Database.DatabaseControls
         public InitailizeDatabase()
         {
             InitializeComponent();
-
-            fileLocation.Text = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\KBR\\ESB2";
-            filename.Focus();
         }
 
         private void VallidateForInitialize(object sender, TextChangedEventArgs e)
@@ -53,25 +40,12 @@ namespace Database.DatabaseControls
         private void ValidateInitializeButton()
         {
             init.IsEnabled =
-                !string.IsNullOrEmpty(fileLocation.Text) &&
-                !string.IsNullOrEmpty(filename.Text) &&
                 !string.IsNullOrEmpty(username.Text) &&
                 username.Text.Length >= 5 &&
                 !string.IsNullOrEmpty(firstname.Text) &&
                 !string.IsNullOrEmpty(lastname.Text) &&
                 password1.Password.Length >= 8 &&
                 password1.Password.Equals(password2.Password);
-        }
-
-        private void FileLocationClick(object sender, RoutedEventArgs e)
-        {
-            var dialog = new FolderBrowserDialog()
-            {
-                Description = "ESB Database Loation",
-                SelectedPath = fileLocation.Text
-            };
-
-            dialog.ShowDialog();
         }
 
         private void VallidateForInitialize(object sender, RoutedEventArgs e)
@@ -81,9 +55,6 @@ namespace Database.DatabaseControls
 
         private void InitClick(object sender, RoutedEventArgs e)
         {
-            if (!filename.Text.EndsWith(".sdf"))
-                filename.Text += ".sdf";
-
             Close();
         }
     }

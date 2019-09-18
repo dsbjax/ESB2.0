@@ -26,25 +26,6 @@
         <StackPanel Margin="25">
             <TextBlock Text="Initialize Equipment Status Board Database" HorizontalAlignment="Center"
                        FontSize="24"/>
-            <GroupBox Header="Create Database" Margin="15">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="35"/>
-                        <RowDefinition Height="35"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Database Location:"/>
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Database Filename:"/>
-                    <StackPanel Grid.Column="1" Grid.Row="0"  Orientation="Horizontal">
-                        <TextBox x:Name="fileLocation" TabIndex="0" Width="300" TextChanged="VallidateForInitialize"/>
-                        <Button Content="Change Location" Margin="5" Click="FileLocationClick" FontSize="8"/>
-                    </StackPanel>
-                    <TextBox x:Name="filename" TabIndex="1" Grid.Column="1" Grid.Row="1" Width="150"  TextChanged="VallidateForInitialize"/>
-                </Grid>
-            </GroupBox>
             <GroupBox Header="Create Admin Account" Margin="15">
                 <Grid HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>

@@ -97,7 +97,7 @@ namespace Database
 
                     if (PasswordHasher.HashPassword(userLogin.Username, changePasswordDialog.OldPassword).SequenceEqual(userLogin.Password))
                     {
-                        userLogin.Password = PasswordHasher.HashPassword(userLogin.Username, changePasswordDialog.OldPassword);
+                        userLogin.Password = PasswordHasher.HashPassword(userLogin.Username, changePasswordDialog.NewPassword);
                         userLogin.AccountStatus ^= AccountStatus.UserMustChangePassword;
 
                         database.UserLog.Add(new UserLogEvent()
@@ -106,6 +106,8 @@ namespace Database
                             User = userLogin,
                             UserEvent = UserEvents.PasswordChanged
                         });
+
+                        Save();
                     }
                     else
                         new LoginStatusMessageDialog("Password Incorrect").ShowDialog();
@@ -122,6 +124,18 @@ namespace Database
 
                 CurrentUser.SetCurrentUser(userLogin);
             }
+        }
+
+        internal static void ResetPassword(User selectedItem)
+        {
+            database.Users.First(u => u.Id == selectedItem.Id).Password = PasswordHasher.HashPassword(selectedItem.Username, "password123");
+            Save();
+        }
+
+        internal static void SetPassword(User selectedItem, string password)
+        {
+            database.Users.First(u => u.Id == selectedItem.Id).Password = PasswordHasher.HashPassword(selectedItem.Username, password);
+            Save();
         }
 
         public static StatusPage UpdateStatusPage(int statusPageId)
@@ -549,21 +563,7 @@ namespace Database
         {
             statusBarEquipment.Clear();
 
-            if (!database.StatusPageGroupings.Any(s => s.IsStatusBar == true))
-            {
-                var statusPage = new StatusPage() {
-                    Title = "Status Bar",
-                    Description = "System Generated Page",
-                    IsDisplayed = false
-                };
 
-                statusPage.StatusPageGroupings.Add(new StatusPageGrouping() {
-                    Title = "Status Bar Group",
-                    Description = "System Generated, only one group allowed.",
-                    IsStatusBar = true });
-
-                database.StatusPages.Add(statusPage);
-            }
 
             Save();
 

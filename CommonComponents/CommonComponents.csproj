@@ -61,6 +61,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiagnosticDialog.xaml.cs">
+      <DependentUpon>DiagnosticDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExceptionErrorDialog.xaml.cs">
       <DependentUpon>ExceptionErrorDialog.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="DiagnosticDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExceptionErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

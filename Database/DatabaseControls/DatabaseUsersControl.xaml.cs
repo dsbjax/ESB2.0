@@ -41,6 +41,11 @@ namespace Database.DatabaseControls
             base.OnRender(drawingContext);
             DatabaseAccess.RefreshUserList();
         }
+
+        private void ResetPasswordClick(object sender, RoutedEventArgs e)
+        {
+            DatabaseAccess.ResetPassword((User) userListView.SelectedItem);
+        }
     }
 
     public class NullObjectToBoolean : IValueConverter

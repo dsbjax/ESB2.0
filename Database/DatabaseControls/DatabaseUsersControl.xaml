@@ -16,6 +16,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Reset Password" Click="ResetPasswordClick"/>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
                             <TextBlock Text="{Binding Lastname}" FontWeight="Bold"/>
                             <TextBlock Text=", "/>
                             <TextBlock Text="{Binding Firstname}"/>

@@ -24,14 +24,15 @@
                       ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Center">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="2"/>
+                        <UniformGrid Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <local:EquipmentStatusIndicator 
                             Nomenclature="{Binding Nomenclature}" 
-                            EquipmentStatus="{Binding EquipmentStatus}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            EquipmentStatus="{Binding EquipmentStatus}" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
 

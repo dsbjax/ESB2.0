@@ -8,11 +8,14 @@ using System.Configuration;
 using Database.DatabaseControls;
 using System.IO;
 using CommonComponents;
+using System.Security.AccessControl;
 
 namespace Database
 {
     public static class ESB2db
     {
+        private static readonly string dbDIR = @"C:\KBR\ESB2";
+
         private static ESB2DatabaseContainer database;
         internal static ESB2DatabaseContainer GetDatabase()
         {
@@ -31,36 +34,55 @@ namespace Database
         #region Database Initialazation
         public static void InitializeDatabase()
         {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var connectionString = config.ConnectionStrings.ConnectionStrings["ESB2DatabaseContainer"];
-
-            if (connectionString.ConnectionString.Contains("xxxxx"))
+            if (!Directory.Exists(dbDIR))
             {
-                var dialog = new InitailizeDatabase();
-                dialog.ShowDialog();
+                var dirInfo = Directory.CreateDirectory(dbDIR);
+                var dirSec = dirInfo.GetAccessControl();
 
-                if (!Directory.Exists(dialog.DatabaseFilename))
-                    Directory.CreateDirectory(
-                        dialog.DatabaseFilename.Substring(0, dialog.DatabaseFilename.LastIndexOf('\\')));
+                dirSec.AddAccessRule(new FileSystemAccessRule(
+                    "Users", 
+                    FileSystemRights.FullControl, 
+                    AccessControlType.Allow));
 
-                try
-                {
-                    CreateDatabase(config, connectionString, dialog);
-
-                    if (database.Users.Count() == 0)
-                        CreateAdminAccount(dialog);
-                }
-                catch (Exception e)
-                {
-                    var exceptionDialog = new ExceptionErrorDialog("ESB2db.InitializeDatabase", e);
-                    exceptionDialog.ShowDialog();
-                }
+                dirInfo.SetAccessControl(dirSec);
             }
 
+            database = new ESB2DatabaseContainer();
+            database.Database.CreateIfNotExists();
+
+            if (database.Users.Count() == 0)
+                CreateAdminAccount();
+
+            if (!database.StatusPageGroupings.Any(s => s.IsStatusBar == true))
+                CreateStaticStatusPage();
         }
 
-        private static void CreateAdminAccount(InitailizeDatabase dialog)
+        private static void CreateStaticStatusPage()
         {
+            var statusPage = new StatusPage()
+            {
+                Title = "Status Bar",
+                Description = "System Generated Page",
+                IsDisplayed = false
+            };
+
+            statusPage.StatusPageGroupings.Add(new StatusPageGrouping()
+            {
+                Title = "Status Bar Group",
+                Description = "System Generated, only one group allowed.",
+                IsStatusBar = true
+            });
+
+            database.StatusPages.Add(statusPage);
+
+            database.SaveChanges();
+        }
+
+        private static void CreateAdminAccount()
+        {
+            var dialog = new InitailizeDatabase();
+            dialog.ShowDialog();
+
             var user = new User()
             {
                 Username = dialog.Username,
@@ -86,15 +108,6 @@ namespace Database
             database.SaveChanges();
         }
 
-        private static void CreateDatabase(Configuration config, ConnectionStringSettings connectionString, InitailizeDatabase dialog)
-        {
-            connectionString.ConnectionString = connectionString.ConnectionString.Replace("xxxxx", dialog.DatabaseFilename);
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("connectionStrings");
-
-            database = new ESB2DatabaseContainer();
-            database.Database.CreateIfNotExists();
-        }
         #endregion
     }
 }
