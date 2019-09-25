@@ -4,16 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StatusBoard"
-             mc:Ignorable="d" Margin="5" Height="50" x:Name="indicator">
+             mc:Ignorable="d" Height="50" x:Name="indicator" HorizontalAlignment="Center">
     <UserControl.Resources>
         <local:GetColor x:Key="color"/>
         <local:GetDarkColor x:Key="darkColor"/>
+        <local:GetShadowColor x:Key="shadow"/>
     </UserControl.Resources>
     <Grid>
-        <Ellipse Stroke="White" StrokeThickness="3">
+        <Ellipse Stroke="White" StrokeThickness="2">
             <Ellipse.Effect>
                 <DropShadowEffect BlurRadius="15" ShadowDepth="0" 
-                                  Color="{Binding ElementName=indicator, Path=EquipmentStatus, Converter={StaticResource color}}"/>
+                                  Color="{Binding ElementName=indicator, Path=EquipmentStatus, Converter={StaticResource shadow}}"/>
             </Ellipse.Effect>
             <Ellipse.Fill>
                 <RadialGradientBrush>
@@ -23,7 +24,7 @@
             </Ellipse.Fill>
         </Ellipse>
         <TextBlock Text="{Binding ElementName=indicator, Path=Nomenclature}" 
-                   FontSize="20" Margin="15" Foreground="White" FontWeight="Bold"
+                   FontSize="20" Margin="15" Foreground="White" 
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

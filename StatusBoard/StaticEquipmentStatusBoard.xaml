@@ -17,7 +17,7 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <local:EquipmentStatusIndicator EquipmentStatus="{Binding EquipmentStatus}" Nomenclature="{Binding Nomenclature}"/>
+                    <local:EquipmentStatusIndicator EquipmentStatus="{Binding EquipmentStatus}" Nomenclature="{Binding Nomenclature}" Margin="5"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

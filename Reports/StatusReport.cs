@@ -104,9 +104,13 @@ namespace Reports
             {
                 foreach (var outage in active)
                 {
-                    para = new Paragraph(new Run(
-                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
-                        outage.Title + ": " + outage.Description))
+                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                        outage.Title + ": " + outage.Description + "\nEquipment: ";
+
+                    foreach (var eq in outage.Equipment)
+                        text += eq + "\t";
+
+                    para = new Paragraph(new Run(text))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -136,9 +140,13 @@ namespace Reports
             {
                 foreach (var outage in today)
                 {
-                    para = new Paragraph(new Run(
-                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
-                        outage.Title + ": " + outage.Description))
+                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                        outage.Title + ": " + outage.Description + "\nEquipment: ";
+
+                    foreach (var eq in outage.Equipment)
+                        text += eq + "\t";
+
+                    para = new Paragraph(new Run(text))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -169,9 +177,13 @@ namespace Reports
             {
                 foreach (var outage in tomorrow)
                 {
-                    para = new Paragraph(new Run(
-                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
-                        outage.Title + ": " + outage.Description))
+                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                        outage.Title + ": " + outage.Description + "\nEquipment: ";
+
+                    foreach (var eq in outage.Equipment)
+                        text += eq + "\t";
+
+                    para = new Paragraph(new Run(text))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -201,9 +213,13 @@ namespace Reports
             {
                 foreach (var outage in next7Days)
                 {
-                    para = new Paragraph(new Run(
-                        outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
-                        outage.Title + ": " + outage.Description))
+                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                        outage.Title + ": " + outage.Description + "\nEquipment: ";
+
+                    foreach (var eq in outage.Equipment)
+                        text += eq + "\t";
+
+                    para = new Paragraph(new Run(text))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -315,7 +331,20 @@ namespace Reports
                     };
                     flowDocument.Blocks.Add(para);
 
-                    if(outage.Updates.Count > 0)
+                    string text = "";
+
+                    foreach (var eq in outage.Equipment)
+                        text += eq + "\t";
+
+                    para = new Paragraph(new Run(text))
+                    {
+                        FontFamily = REPORT_FONT,
+                        FontSize = 12,
+                        Margin = new Thickness(0, 2, 0, 0)
+                    };
+                    flowDocument.Blocks.Add(para);
+
+                    if (outage.Updates.Count > 0)
                     {
                         para = new Paragraph(new Run("Updates:"))
                         {

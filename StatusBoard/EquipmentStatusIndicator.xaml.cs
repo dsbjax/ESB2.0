@@ -77,6 +77,38 @@ namespace StatusBoard
         }
     }
 
+    public class GetShadowColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Color color = Colors.Green;
+
+            if (value != null)
+                switch ((EquipmentStatus)value)
+                {
+                    case EquipmentStatus.Degraded:
+                        color = Colors.Orange;
+                        break;
+
+                    case EquipmentStatus.Down:
+                        color = Colors.Red;
+                        break;
+
+                    case EquipmentStatus.OffLine:
+                        color = Colors.Transparent;
+                        break;
+                }
+
+            return color;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
     public class GetColor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

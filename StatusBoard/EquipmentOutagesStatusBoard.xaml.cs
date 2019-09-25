@@ -89,7 +89,7 @@ namespace StatusBoard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null || ((DateTime)value).CompareTo(DateTime.UtcNow) > 0 ? Brushes.Blue : Brushes.Red;
+            return value == null || ((DateTime)value).CompareTo(DateTime.UtcNow) > 0 ? Brushes.LightGray : Brushes.Red;
 
         }
 

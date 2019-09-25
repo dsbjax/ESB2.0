@@ -8,7 +8,7 @@
     <UserControl.Resources>
     </UserControl.Resources>
     <Grid Margin="10">
-        <Rectangle Stroke="LightSlateGray" StrokeThickness="3" Fill="LightGray" RadiusX="10" RadiusY="10">
+        <Rectangle Stroke="LightSlateGray" StrokeThickness="2" Fill="LightGray" RadiusX="10" RadiusY="10">
             <Rectangle.Effect>
                 <DropShadowEffect/>
             </Rectangle.Effect>
@@ -18,10 +18,15 @@
                        HorizontalAlignment="Center"/>
             <TextBlock Text="{Binding ElementName=groupIndicator, Path=Description}" FontSize="16"
                        HorizontalAlignment="Center"/>
-            <ListView ItemsSource="{Binding ElementName=groupIndicator, Path=Equipment}" Margin="10" 
+            <ListView ItemsSource="{Binding ElementName=groupIndicator, Path=Equipment}" Margin="5" 
                         Background="{x:Null}" BorderBrush="{x:Null}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Center">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -32,7 +37,7 @@
                         <local:EquipmentStatusIndicator 
                             Nomenclature="{Binding Nomenclature}" 
                             EquipmentStatus="{Binding EquipmentStatus}" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
 
