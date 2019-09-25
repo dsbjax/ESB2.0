@@ -1,0 +1,18 @@
+﻿<Window x:Class="ApplicationManagementConsole.UserDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApplicationManagementConsole"
+        mc:Ignorable="d"
+        Title="UserDialog" Background="{x:Null}" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Rectangle Style="{StaticResource DialogBackground}"/>
+        <StackPanel Margin="20">
+            <TextBlock x:Name="title" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Margin="10"/>
+            <TextBlock x:Name="message" HorizontalAlignment="Center" FontFamily="12" Margin="10"/>
+            <Button Style="{StaticResource LabelButton}" Content="&lt;Esc&gt; to close" IsCancel="True" Margin="10"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

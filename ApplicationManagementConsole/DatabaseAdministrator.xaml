@@ -4,9 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApplicationManagementConsole"
-             mc:Ignorable="d" >
+             mc:Ignorable="d" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500">
     <Grid>
         <Rectangle Style="{StaticResource ControlBackground}"/>
-        <TextBlock Text="Database Administrator" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel Margin="20">
+            <TextBlock Text="Database Administratation" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <UniformGrid Rows="1">
+                <Button Content="Database Backup" 
+                    Style="{StaticResource LabelButton}" Margin="10" HorizontalAlignment="Center"
+                        ToolTip="Full Database Backup" Click="DatabaseBackupClick"/>
+                <Button Content="Database Archive" 
+                    Style="{StaticResource LabelButton}" Margin="10" HorizontalAlignment="Center"
+                        ToolTip="Achive Old Data and Remove from Database" Click="DatabaseArchiveClick"/>
+                <Button Content="Database Restore" 
+                    Style="{StaticResource LabelButton}" Margin="10" HorizontalAlignment="Center"
+                        ToolTip="Restore Database from backup" Click="DatabaseRestoreClick"/>
+            </UniformGrid>
+        </StackPanel>
     </Grid>
 </UserControl>

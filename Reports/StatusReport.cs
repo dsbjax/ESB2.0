@@ -28,7 +28,7 @@ namespace Reports
 
             Paragraph paragraph;
 
-            printDialog.ShowDialog();
+            //printDialog.ShowDialog();
             
             paragraph = new Paragraph(new Run("Equipment Status Report\t" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString())) {
                 FontFamily = REPORT_FONT,
@@ -108,7 +108,7 @@ namespace Reports
                         outage.Title + ": " + outage.Description + "\nEquipment: ";
 
                     foreach (var eq in outage.Equipment)
-                        text += eq + "\t";
+                        text += eq.Nomenclature + "\t";
 
                     para = new Paragraph(new Run(text))
                     {
@@ -144,7 +144,7 @@ namespace Reports
                         outage.Title + ": " + outage.Description + "\nEquipment: ";
 
                     foreach (var eq in outage.Equipment)
-                        text += eq + "\t";
+                        text += eq.Nomenclature + "\t";
 
                     para = new Paragraph(new Run(text))
                     {
@@ -181,7 +181,7 @@ namespace Reports
                         outage.Title + ": " + outage.Description + "\nEquipment: ";
 
                     foreach (var eq in outage.Equipment)
-                        text += eq + "\t";
+                        text += eq.Nomenclature + "\t";
 
                     para = new Paragraph(new Run(text))
                     {
@@ -217,7 +217,7 @@ namespace Reports
                         outage.Title + ": " + outage.Description + "\nEquipment: ";
 
                     foreach (var eq in outage.Equipment)
-                        text += eq + "\t";
+                        text += eq.Nomenclature + "\t";
 
                     para = new Paragraph(new Run(text))
                     {
@@ -253,6 +253,19 @@ namespace Reports
                         "Outage Reported: " + outage.Start.ToString("MM/dd/yyyy HH:mm") +
                         "\tOutage Closed: " + outage.End.Value.ToString("MM/dd/yyyy HH:mm") + 
                         "\nReported By: " + outage.CreatedBy.Lastname + ", " + outage.CreatedBy.Firstname))
+                    {
+                        FontFamily = REPORT_FONT,
+                        FontSize = 12,
+                        Margin = new Thickness(0, 2, 0, 0)
+                    };
+                    flowDocument.Blocks.Add(para);
+
+                    string text = "Equipment: ";
+
+                    foreach (var eq in outage.Equipment)
+                        text += eq.Nomenclature + "\t";
+
+                    para = new Paragraph(new Run(text))
                     {
                         FontFamily = REPORT_FONT,
                         FontSize = 12,
@@ -331,10 +344,10 @@ namespace Reports
                     };
                     flowDocument.Blocks.Add(para);
 
-                    string text = "";
+                    string text = "Equipment: ";
 
                     foreach (var eq in outage.Equipment)
-                        text += eq + "\t";
+                        text += eq.Nomenclature + "\t";
 
                     para = new Paragraph(new Run(text))
                     {

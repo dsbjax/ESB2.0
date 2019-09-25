@@ -7,6 +7,22 @@
              mc:Ignorable="d" >
     <Grid>
         <Rectangle Style="{StaticResource ControlBackground}"/>
-        <TextBlock Text="Reports" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="20">
+            <TextBlock Text="Reports" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="300" VerticalAlignment="Center">
+                    <Button Content="User Log" 
+                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
+                    <Button Content="Monthly Report" 
+                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
+                    <Button Content="Quarterly Report" 
+                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
+                    <Button Content="Year to Date Report" 
+                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
+                    <Button Content="Archived Database Report" 
+                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>
