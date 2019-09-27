@@ -126,6 +126,16 @@ namespace Database
             }
         }
 
+        public static List<UserLogEvent> GetUserEventsLog()
+        {
+            return database.UserLog.OrderBy(l => l.Timestamp).ToList();
+        }
+
+        public static IEnumerable GetUserEvents()
+        {
+            return null;
+        }
+
         internal static void ResetPassword(User selectedItem)
         {
             database.Users.First(u => u.Id == selectedItem.Id).Password = PasswordHasher.HashPassword(selectedItem.Username, "password123");
@@ -188,6 +198,7 @@ namespace Database
 
         public static ObservableCollection<User> GetUserList()
         {
+            RefreshUserList();
             return userList;
         }
 

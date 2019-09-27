@@ -21,5 +21,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Rectangle Fill="Aqua" Opacity="0"/>
     </Grid>
 </UserControl>

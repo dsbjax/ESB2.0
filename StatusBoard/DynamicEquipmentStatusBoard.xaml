@@ -9,6 +9,7 @@
         <Grid>
             <Rectangle Style="{StaticResource ControlBackground}"/>
             <Grid x:Name="statusPanel" Margin="25"/>
+            <Rectangle Fill="AliceBlue" Opacity="0"/>
         </Grid>
     </DockPanel>
 </UserControl>

@@ -44,9 +44,9 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10">
                 <TextBlock Text="Title:" VerticalAlignment="Center"/>
-                <TextBox x:Name="title" Width="150" Margin="10"/>
+                <TextBox x:Name="title" Width="150" Margin="10" SpellCheck.IsEnabled="True"/>
                 <TextBlock Text="Description:" VerticalAlignment="Center"/>
-                <TextBox x:Name="description" Width="450" Margin="10"/>
+                <TextBox x:Name="description" Width="450" Margin="10" SpellCheck.IsEnabled="True"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10">
                 <Grid>

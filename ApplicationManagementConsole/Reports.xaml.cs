@@ -24,5 +24,17 @@ namespace ApplicationManagementConsole
         {
             InitializeComponent();
         }
+
+        private void ReportSelectionClick(object sender, RoutedEventArgs e)
+        {
+            HideAllReports();
+
+            ((UIElement)((Button)sender).Tag).Visibility = Visibility.Visible;
+        }
+
+        private void HideAllReports()
+        {
+            userLog.Visibility = Visibility.Collapsed;
+        }
     }
 }

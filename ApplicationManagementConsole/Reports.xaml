@@ -7,22 +7,24 @@
              mc:Ignorable="d" >
     <Grid>
         <Rectangle Style="{StaticResource ControlBackground}"/>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="20">
-            <TextBlock Text="Reports" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Width="300" VerticalAlignment="Center">
-                    <Button Content="User Log" 
-                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
-                    <Button Content="Monthly Report" 
-                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
-                    <Button Content="Quarterly Report" 
-                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
-                    <Button Content="Year to Date Report" 
-                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
-                    <Button Content="Archived Database Report" 
-                        Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5"/>
-                </StackPanel>
+        <DockPanel Margin="20">
+            <TextBlock DockPanel.Dock="Top" Text="Reports" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold"/>
+            <StackPanel DockPanel.Dock="Left" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="User Log" 
+                    Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"
+                        Tag="{Binding ElementName=userLog}" Click="ReportSelectionClick"/>
+                <Button Content="Monthly Report" 
+                    Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"/>
+                <Button Content="Quarterly Report" 
+                    Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"/>
+                <Button Content="Year to Date Report" 
+                    Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"/>
+                <Button Content="Archived Database Report" 
+                    Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"/>
             </StackPanel>
-        </StackPanel>
+            <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <local:UserLog x:Name="userLog" Visibility="Collapsed"/>
+            </Grid>
+    </DockPanel>
     </Grid>
 </UserControl>

@@ -78,7 +78,8 @@
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10"
                             IsEnabled="{Binding ElementName=outages, Path=SelectedItem.Completed, Converter={StaticResource booleanInverter}}">
                     <TextBlock Text="New Update:" VerticalAlignment="Center"/>
-                    <TextBox x:Name="newOutageUpdate" VerticalContentAlignment="Center" TextWrapping="Wrap" Width="350"/>
+                    <TextBox x:Name="newOutageUpdate" VerticalContentAlignment="Center" 
+                             TextWrapping="Wrap" Width="350" SpellCheck.IsEnabled="True"/>
                     <StackPanel>
                         <ComboBox x:Name="newEquipmentStatus" Margin="5">
                             <TextBlock Text="Operational"/>
@@ -137,9 +138,11 @@
                         <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"
                            Text="Created by:"/>
                         <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"
-                         Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 SpellCheck.IsEnabled="True"/>
                         <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="450" TextWrapping="Wrap"
-                           Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                           Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 SpellCheck.IsEnabled="True"/>
                         <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"
                            Text="{Binding ElementName=scheduledOutages, Path=SelectedItem.CreatedBy, Converter={StaticResource createdByUsername}}"/>
                         <TextBlock Grid.Column="0" Grid.Row="3" Text="Start Time:" HorizontalAlignment="Right" VerticalAlignment="Center"/>

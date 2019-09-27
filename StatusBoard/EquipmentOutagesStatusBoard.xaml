@@ -116,5 +116,6 @@
             <ListView x:Name="next7DaysScheduledOutages" Style="{StaticResource scheduledOutages}"
                       Visibility="{Binding ElementName=next7DaysScheduledOutages, Path=Items.Count, Converter={StaticResource listViewHidden}}"/>
         </StackPanel>
+        <Rectangle Fill="AliceBlue" Opacity="0"/>
     </Grid>
 </UserControl>

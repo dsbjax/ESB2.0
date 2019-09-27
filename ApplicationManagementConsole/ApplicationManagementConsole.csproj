@@ -101,6 +101,9 @@
     <Compile Include="UserDialog.xaml.cs">
       <DependentUpon>UserDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserLog.xaml.cs">
+      <DependentUpon>UserLog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserManager.xaml.cs">
       <DependentUpon>UserManager.xaml</DependentUpon>
     </Compile>
@@ -163,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
