@@ -53,7 +53,7 @@ namespace ApplicationManagementConsole
                 log = log.Where(l => l.User.Id == ((User)byUser.SelectedItem).Id).ToList();
 
             if (byEvent.SelectedItem != null)
-                log = log.Where(l => l.UserEvent == ((UserEvents)byEvent.SelectedItem)).ToList();
+                log = log.Where(l => l.UserEvent == ((UserEvents)((ComboBoxItem)byEvent.SelectedItem).Tag)).ToList();
 
             if (start.SelectedDate.HasValue)
                 log = log.Where(l => l.Timestamp.CompareTo(start.SelectedDate.Value) > 0).ToList();
@@ -70,7 +70,44 @@ namespace ApplicationManagementConsole
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            string userEvent = null;
+
+            switch((int)value)
+            {
+                case 0:
+                    userEvent = "Account Created";
+                    break;
+
+                case 1:
+                    userEvent = "Sucessful Login";
+                    break;
+
+                case 2:
+                    userEvent = "User Logout";
+                    break;
+
+                case 3:
+                    userEvent = "Failed Login";
+                    break;
+
+                case 4:
+                    userEvent = "Account Locked";
+                    break;
+
+                case 5:
+                    userEvent = "Account Unlocked";
+                    break;
+
+                case 6:
+                    userEvent = "Account Disabled";
+                    break;
+
+                case 7:
+                    userEvent = "Password Changed";
+                    break;
+            }
+
+            return userEvent;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

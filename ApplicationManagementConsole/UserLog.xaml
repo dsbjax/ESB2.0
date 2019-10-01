@@ -4,7 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ApplicationManagementConsole"
-             mc:Ignorable="d">
+             xmlns:dbase="clr-namespace:Database;assembly=esb2db"
+             mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <UserControl.Resources>
+        <local:LogEventsConverter x:Key="logEvents"/>
+    </UserControl.Resources>
     <DockPanel>
         <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top">
             <TextBlock Text="Filters:" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
@@ -39,7 +43,16 @@
                 <TextBlock Grid.Row="0" Grid.Column="2" Text="By Event: " 
                            VerticalAlignment="Center" HorizontalAlignment="Right"
                            Margin="5"/>
-                <ComboBox Grid.Row="0" Grid.Column="3" x:Name="byEvent" VerticalAlignment="Center" SelectionChanged="FiltersChanged"/>
+                <ComboBox Grid.Row="0" Grid.Column="3" x:Name="byEvent" VerticalAlignment="Center" SelectionChanged="FiltersChanged">
+                    <ComboBoxItem Content="Account Created" Tag="{x:Static dbase:UserEvents.AccountCreated}"/>
+                    <ComboBoxItem Content="Sucessful Login" Tag="{x:Static dbase:UserEvents.UserLogin}"/>
+                    <ComboBoxItem Content="User Logout" Tag="{x:Static dbase:UserEvents.UserLogout}"/>
+                    <ComboBoxItem Content="Failed Login" Tag="{x:Static dbase:UserEvents.FailedLogin}"/>
+                    <ComboBoxItem Content="Account Locked" Tag="{x:Static dbase:UserEvents.AccountLocked}"/>
+                    <ComboBoxItem Content="Account Unlocked" Tag="{x:Static dbase:UserEvents.AccountUnlocked}"/>
+                    <ComboBoxItem Content="Account Disabled" Tag="{x:Static dbase:UserEvents.AccountDisabled}"/>
+                    <ComboBoxItem Content="Password Changed" Tag="{x:Static dbase:UserEvents.PasswordChanged}"/>
+                </ComboBox>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="By Date From: " 
                            VerticalAlignment="Center" HorizontalAlignment="Right"
                            Margin="5"/>
@@ -62,13 +75,14 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Timestamp, StringFormat='{}{0:dd-MMM-yyyy HH:mm:ss}'}"/>
-                            <TextBlock Text="{Binding Path=User.Username}"/>
-                            <TextBlock>
+                            <TextBlock Text="{Binding Timestamp, StringFormat='{}{0:dd-MMM-yyyy HH:mm:ss}'}" Width="135"/>
+                            <TextBlock Text="{Binding Path=User.Username}" Width="75"/>
+                            <TextBlock Width="135">
                                 <Run Text="{Binding Path=User.Lastname}"/>
                                 <Run Text=", "/>
                                 <Run Text="{Binding Path=User.Firstname}"/>
                             </TextBlock>
+                            <TextBlock Text="{Binding Path=UserEvent, Converter={StaticResource logEvents}}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
