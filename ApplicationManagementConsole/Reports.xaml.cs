@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reports;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,13 @@ namespace ApplicationManagementConsole
         private void HideAllReports()
         {
             userLog.Visibility = Visibility.Collapsed;
+            reportViewer.Visibility = Visibility.Collapsed;
+        }
+
+        private void MonthlyReportClick(object sender, RoutedEventArgs e)
+        {
+            ReportSelectionClick(sender, e);
+            reportViewer.LoadReport(MonthlyReport.GetReport(new PrintDialog()));
         }
     }
 }

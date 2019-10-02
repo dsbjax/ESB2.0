@@ -14,7 +14,8 @@
                     Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"
                         Tag="{Binding ElementName=userLog}" Click="ReportSelectionClick"/>
                 <Button Content="Monthly Report" 
-                    Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"/>
+                    Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"
+                       Tag="{Binding ElementName=reportViewer}"  Click="MonthlyReportClick"/>
                 <Button Content="Quarterly Report" 
                     Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"/>
                 <Button Content="Year to Date Report" 
@@ -22,8 +23,9 @@
                 <Button Content="Archived Database Report" 
                     Style="{StaticResource LabelButton}" HorizontalAlignment="Center" Margin="5" FontSize="16"/>
             </StackPanel>
-            <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Margin="10" >
                 <local:UserLog x:Name="userLog" Visibility="Collapsed"/>
+                <local:ReportViewPrintControl x:Name="reportViewer" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </Grid>
     </DockPanel>
     </Grid>

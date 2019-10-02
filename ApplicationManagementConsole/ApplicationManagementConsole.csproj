@@ -92,6 +92,9 @@
     <Compile Include="Reports.xaml.cs">
       <DependentUpon>Reports.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReportViewPrintControl.xaml.cs">
+      <DependentUpon>ReportViewPrintControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StatusBoardManager.xaml.cs">
       <DependentUpon>StatusBoardManager.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
       <Project>{91ad2eed-8d19-4fe2-acd5-50609f401a78}</Project>
       <Name>Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Reports\Reports.csproj">
+      <Project>{dbac2f4c-b8a9-467e-acc5-6b794178bc3c}</Project>
+      <Name>Reports</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="AddNewPageDialog.xaml">
@@ -154,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReportViewPrintControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

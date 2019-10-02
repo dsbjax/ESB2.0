@@ -15,6 +15,16 @@ namespace Database
     {
         private static ESB2DatabaseContainer database = ESB2db.GetDatabase();
 
+        public static IEnumerable<Outage> LastMonthsOutages()
+        {
+            var lastMonth = DateTime.Now.AddMonths(-1);
+
+            return database.Outages
+                .Where(o=> o.Completed == true)
+                .Where(o => o.End.Value.Month == lastMonth.Month && o.End.Value.Year == lastMonth.Year)
+                .OrderBy(o => o.Start);
+        }
+
 
         #region Login/Logout
         private static readonly double ACCOUNT_RESET_TIMESPAN = 15;
