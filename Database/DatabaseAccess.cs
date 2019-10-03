@@ -25,6 +25,15 @@ namespace Database
                 .OrderBy(o => o.Start);
         }
 
+        public static IEnumerable<Outage> GetOutages(DateTime start, DateTime end)
+        {
+            return database.Outages
+                .Where(o => o.Completed == true)
+                .Where(o => o.End.Value > start && o.End.Value < end)
+                .OrderBy(o => o.Start);
+
+        }
+
 
         #region Login/Logout
         private static readonly double ACCOUNT_RESET_TIMESPAN = 15;

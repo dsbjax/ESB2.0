@@ -10,14 +10,15 @@ using System.Windows.Documents;
 
 namespace Reports
 {
-    public static class MonthlyReport
+    public static class MonthlyReports
     {
         private static readonly List<Outage> outages = new List<Outage>();
+        private static readonly PrintDialog printDialog = new PrintDialog();
 
-        public static FlowDocument GetReport(PrintDialog printDialog)
+        public static FlowDocument GetReport(string reportHeader, DateTime start, DateTime end, bool showUpdates)
         {
             outages.Clear();
-            outages.AddRange(DatabaseAccess.LastMonthsOutages());
+            outages.AddRange(DatabaseAccess.GetOutages(start, end));
             var flowDocument = new FlowDocument()
             {
                 PagePadding = new Thickness(50),
@@ -25,13 +26,17 @@ namespace Reports
                 ColumnWidth = printDialog.PrintableAreaWidth
             };
 
-            flowDocument.Blocks.Add(GetReportHeader());
+            flowDocument.Blocks.Add(GetReportHeader(reportHeader));
             flowDocument.Blocks.Add(GetSummaryHeader());
             flowDocument.Blocks.Add(GetOutageSummary());
             flowDocument.Blocks.Add(GetByEquipmentHeader());
             flowDocument.Blocks.Add(GetByEquipmentOutages());
-            flowDocument.Blocks.Add(GetOutageDetailsHeader());
-            flowDocument.Blocks.Add(GetOutageDetails());
+
+            if(showUpdates)
+            {
+                flowDocument.Blocks.Add(GetOutageDetailsHeader());
+                flowDocument.Blocks.Add(GetOutageDetails());
+            }
 
 
             return flowDocument;
@@ -60,8 +65,6 @@ namespace Reports
                         "\t" + entry.Update + "\n");
 
                 paragraph.Inlines.Add("\n\n");
-
-
             }
 
             return paragraph;
@@ -206,10 +209,9 @@ namespace Reports
                 };
         }
 
-        private static Paragraph GetReportHeader()
+        private static Paragraph GetReportHeader(string reportHeader)
         {
-            return new Paragraph(
-                new Run("Monthly Report for " + DateTime.Now.AddMonths(-1).ToString("MMM yyyy")))
+            return new Paragraph(new Run(reportHeader))
             {
                 FontSize = 24,
                 FontWeight = FontWeights.Bold,

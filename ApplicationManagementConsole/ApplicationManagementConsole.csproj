@@ -64,6 +64,9 @@
     <Compile Include="AddNewPageDialog.xaml.cs">
       <DependentUpon>AddNewPageDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomReportDatesDialog.xaml.cs">
+      <DependentUpon>CustomReportDatesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseAdministrator.xaml.cs">
       <DependentUpon>DatabaseAdministrator.xaml</DependentUpon>
     </Compile>
@@ -141,6 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="AddNewPageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomReportDatesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
