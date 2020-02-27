@@ -31,15 +31,15 @@ namespace ApplicationManagementConsole
         {
             Visibility = newCurrentUser != null ? Visibility.Visible : Visibility.Collapsed;
 
+            reportsControl.Visibility =
+                newEquipmentOutageControl.Visibility =
+                userManagerControl.Visibility =
+                equipmentManagerControl.Visibility =
+                statusBoardManagerControl.Visibility =
+                databaseManagerControl.Visibility = Visibility.Collapsed;
+
             if (newCurrentUser != null)
             {
-                reportsControl.Visibility =
-                    newEquipmentOutageControl.Visibility =
-                    userManagerControl.Visibility =
-                    equipmentManagerControl.Visibility =
-                    statusBoardManagerControl.Visibility =
-                    databaseManagerControl.Visibility = Visibility.Collapsed;
-
                 if (newCurrentUser.UserPermissions == UserPermissions.ReportViewer)
                 {
                     menu.Visibility = Visibility.Collapsed;

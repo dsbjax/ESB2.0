@@ -418,14 +418,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:esb2db, Version=1.0.2019.276, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:esb2db, Version=1.0.2019.283, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_03EB224913FB8E8C1C2D681C6585831B"
-                    {
-                    "Name" = "8:esb2db.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:esb2db.dll"
             "TargetName" = "8:"
@@ -449,14 +444,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:esb2cc, Version=1.0.2019.274, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:esb2cc, Version=1.0.2019.283, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_13902F03E26DA5DEF6E0C0B14AF29EE9"
-                    {
-                    "Name" = "8:esb2cc.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:esb2cc.dll"
             "TargetName" = "8:"
@@ -500,14 +490,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:esb2sb, Version=1.0.2019.276, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:esb2sb, Version=1.0.2019.283, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_173AD322F6687A446955B90E544FAC5B"
-                    {
-                    "Name" = "8:esb2sb.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:esb2sb.dll"
             "TargetName" = "8:"
@@ -531,14 +516,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:esb2amc, Version=1.0.2019.276, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:esb2amc, Version=1.0.2019.283, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1BB16C02FEF8FB5472B5E56831D5FB43"
-                    {
-                    "Name" = "8:esb2amc.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:esb2amc.dll"
             "TargetName" = "8:"
@@ -605,11 +585,6 @@
             "AssemblyAsmDisplayName" = "8:EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_348BC1C6AB3A34B047D56385C9A010F9"
-                    {
-                    "Name" = "8:EntityFramework.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:EntityFramework.dll"
             "TargetName" = "8:"
@@ -676,11 +651,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_40B229378924FB38708E41CA4C17389B"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -747,11 +717,6 @@
             "AssemblyAsmDisplayName" = "8:EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6211504D5F8CEE3A9D430E7E66D31B87"
-                    {
-                    "Name" = "8:EntityFramework.SqlServerCompact.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:EntityFramework.SqlServerCompact.dll"
             "TargetName" = "8:"
@@ -818,11 +783,6 @@
             "AssemblyAsmDisplayName" = "8:EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_829C5BDD5A7F3267DDFE27337451CFBB"
-                    {
-                    "Name" = "8:EntityFramework.SqlServer.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:EntityFramework.SqlServer.dll"
             "TargetName" = "8:"
@@ -866,14 +826,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dsbwpflib, Version=1.0.2019.274, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:dsbwpflib, Version=1.0.2019.283, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_831174422BD7449526699F5AD9060990"
-                    {
-                    "Name" = "8:dsbwpflib.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:dsbwpflib.dll"
             "TargetName" = "8:"
@@ -1000,11 +955,6 @@
             "AssemblyAsmDisplayName" = "8:System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BDB915C47FC97898C16FD9F60A7A7A7A"
-                    {
-                    "Name" = "8:System.Data.SqlServerCe.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Data.SqlServerCe.dll"
             "TargetName" = "8:"
@@ -1088,14 +1038,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:esb2rpt, Version=1.0.2019.276, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:esb2rpt, Version=1.0.2019.283, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F09858518014BEC49DB148AE116047B3"
-                    {
-                    "Name" = "8:esb2rpt.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:esb2rpt.dll"
             "TargetName" = "8:"
@@ -1237,15 +1182,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Equipment Status Board 2.0"
-        "ProductCode" = "8:{A8C73665-357C-4A21-AFB7-D04BC3F1D43C}"
-        "PackageCode" = "8:{0FC10432-1ECE-403A-A99E-0E1EDDBADA3A}"
+        "ProductCode" = "8:{8F87DB55-389A-43DB-BBB7-EC1015E5531C}"
+        "PackageCode" = "8:{0EF5E5F0-908C-43C7-BA9E-3B30A4AF2680}"
         "UpgradeCode" = "8:{38502DEA-597E-4A9B-9A54-126B2167315E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.0.3"
+        "ProductVersion" = "8:2.0.13"
         "Manufacturer" = "8:KBR"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

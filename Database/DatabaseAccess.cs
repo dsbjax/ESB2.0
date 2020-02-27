@@ -526,6 +526,7 @@ namespace Database
             foreach (var outage in database.Outages.
                 Where(o => o.OutageType == OutageType.ScheduledMaintenance).
                 Where(o => o.Completed == false).
+                Where(o=> o.Canceled == false).
                 Where(o => o.Start.CompareTo(currentTime) > 0).
                 Where(o => o.Start.CompareTo(tomorrow) < 0).
                 OrderBy(o => o.Start))

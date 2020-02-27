@@ -7,18 +7,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace Reports
 {
     public static class MonthlyReports
     {
+        private static readonly FontFamily REPORT_FONT = new FontFamily("Times New Roman");
+
         private static readonly List<Outage> outages = new List<Outage>();
-        private static readonly PrintDialog printDialog = new PrintDialog();
+         
 
         public static FlowDocument GetReport(string reportHeader, DateTime start, DateTime end, bool showUpdates)
         {
             outages.Clear();
             outages.AddRange(DatabaseAccess.GetOutages(start, end));
+            PrintDialog printDialog = new PrintDialog();
+
             var flowDocument = new FlowDocument()
             {
                 PagePadding = new Thickness(50),
@@ -48,7 +53,9 @@ namespace Reports
 
             var paragraph = new Paragraph()
             {
-                FontSize = 12
+                FontFamily = REPORT_FONT,
+                FontSize = 12,
+                Margin = new Thickness(10, 10, 0, 0)
             };
 
             foreach(var outage in outageDetails)
@@ -60,9 +67,13 @@ namespace Reports
                 paragraph.Inlines.Add("\n");
 
                 foreach (var entry in outage.Updates)
+                {
+                    string tech = entry.UpdateBy.Lastname + ", " + entry.UpdateBy.Firstname;
+                    tech = tech.PadRight(25);
+
                     paragraph.Inlines.Add(
-                        entry.Timestamp.ToString("dd/MMM/yyyy HHmm by ") + entry.UpdateBy.Lastname + ", " + entry.UpdateBy.Firstname +
-                        "\t" + entry.Update + "\n");
+                        entry.Timestamp.ToString("dd/MMM/yyyy HHmm") + " by " + tech + "\t" + entry.Update + "\n");
+                }
 
                 paragraph.Inlines.Add("\n\n");
             }
@@ -75,16 +86,20 @@ namespace Reports
             return new Paragraph(
                 new Run("Outage Details:"))
                         {
-                            FontSize = 18,
-                            FontWeight = FontWeights.Bold
-                        };
+                FontFamily = REPORT_FONT,
+                FontSize = 18,
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0, 25, 0, 0)
+            };
         }
 
         private static Block GetByEquipmentOutages()
         {
             var paragraph = new Paragraph()
             {
-                FontSize = 12
+                FontFamily = REPORT_FONT,
+                FontSize = 12,
+                Margin = new Thickness(10, 10, 0, 0)
             };
 
             List<Equipment> equipment = new List<Equipment>();
@@ -123,6 +138,7 @@ namespace Reports
                             scheduledOutageCount + 
                             " Scheduled Outage" + (scheduledOutageCount > 1 ? "s " : " ") +
                             "For a total of " +
+                            totalScheduledOutage.Days.ToString() + " Day" + (totalScheduledOutage.Days == 1 ? " " : "s ") +
                             totalScheduledOutage.Hours.ToString() + " Hour" + (totalScheduledOutage.Hours == 1 ? " " : "s ") +
                             totalScheduledOutage.Minutes.ToString() + " Minute" + (totalScheduledOutage.Minutes == 1 ? "" : "s") +
                             "\n"
@@ -136,6 +152,7 @@ namespace Reports
                     correctiveActionCount + 
                     " Corrective Action" + (correctiveActionCount > 1 ? "s " : " ") +
                     "For a total of " +
+                    totalCorrectiveActions.Days.ToString() + " Day" + (totalCorrectiveActions.Days == 1 ? " " : "s ") +
                     totalCorrectiveActions.Hours.ToString() + " Hour" + (totalCorrectiveActions.Hours == 1 ? " " : "s ") +
                     totalCorrectiveActions.Minutes.ToString() + " Minute" + (totalCorrectiveActions.Minutes == 1 ? "" : "s") +
                     "\n"
@@ -151,16 +168,20 @@ namespace Reports
             return new Paragraph(
                 new Run("Outages by Equipment Summary:"))
                     {
-                        FontSize = 18,
-                        FontWeight = FontWeights.Bold
-                    };
+                FontFamily = REPORT_FONT,
+                FontSize = 18,
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0, 25, 0, 0)
+            };
         }
 
         private static Block GetOutageSummary()
         {
             var paragraph = new Paragraph()
             {
-                FontSize = 12
+                FontFamily = REPORT_FONT,
+                FontSize = 12,
+                Margin = new Thickness(10, 10, 0, 0)
             };
 
             int scheduledOutageCount = 0, correctiveActionCount = 0;
@@ -184,6 +205,7 @@ namespace Reports
                 paragraph.Inlines.Add(scheduledOutageCount.ToString() +
                     " Scheduled Outage" + (scheduledOutageCount > 1 ? "s " : " ") +
                     "For a total of " +
+                    totalScheduledOutage.Days.ToString() + " Day" + (totalScheduledOutage.Days == 1 ? " " : "s ") +
                     totalScheduledOutage.Hours.ToString() + " Hour" + (totalScheduledOutage.Hours == 1 ? " " : "s ") +
                     totalScheduledOutage.Minutes.ToString() + " Minute" + (totalScheduledOutage.Minutes == 1 ? "" : "s") + 
                     "\n");
@@ -192,6 +214,7 @@ namespace Reports
                 paragraph.Inlines.Add(correctiveActionCount.ToString() +
                     " Corrective Action" + (correctiveActionCount > 1 ? "s " : " ") +
                     "For a total of " +
+                    totalCorrectiveActions.Days.ToString() + " Day" + (totalCorrectiveActions.Days == 1 ? " " : "s ") +
                     totalCorrectiveActions.Hours.ToString() + " Hour" + (totalCorrectiveActions.Hours == 1 ? " " : "s ") +
                     totalCorrectiveActions.Minutes.ToString() + " Minute" + (totalCorrectiveActions.Minutes == 1 ? "" : "s") +
                     "\n");
@@ -204,17 +227,21 @@ namespace Reports
             return new Paragraph(
                 new Run("Outages Summary:"))
                 {
-                    FontSize = 18,
-                    FontWeight = FontWeights.Bold
-                };
+                FontFamily = REPORT_FONT,
+                FontSize = 18,
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0, 25, 0, 0)
+            };
         }
 
         private static Paragraph GetReportHeader(string reportHeader)
         {
             return new Paragraph(new Run(reportHeader))
             {
+                FontFamily = REPORT_FONT,
                 FontSize = 24,
                 FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0),
                 TextAlignment = TextAlignment.Center
             };
         }

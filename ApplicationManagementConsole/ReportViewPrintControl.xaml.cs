@@ -34,8 +34,16 @@ namespace ApplicationManagementConsole
         {
             var printDialog = new PrintDialog();
 
-            IDocumentPaginatorSource idpSource = (FlowDocument) previewArea.Document;
-            printDialog.PrintDocument(idpSource.DocumentPaginator, "Status Report");
+            if((bool)printDialog.ShowDialog())
+            {
+                FlowDocument flowDocument = (FlowDocument)previewArea.Document;
+                flowDocument.PagePadding = new Thickness(50);
+
+                IDocumentPaginatorSource idpSource = flowDocument;
+                printDialog.PrintDocument(idpSource.DocumentPaginator, "Status Report");
+
+            }
+
         }
     }
 }
