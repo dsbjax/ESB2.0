@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace Database
 {
+    // Tis class is used to store the current active user and notify subscriber of user changes
     public class CurrentUser
     {
 
-        public string Username { get { return DatabaseUser.Username; } }
-        public string Fullname { get { return DatabaseUser.Lastname + ", " + DatabaseUser.Firstname; } }
-        public UserPermissions UserPermissions {get { return DatabaseUser.UserPermission; }}
+        public string Username { get { return currentUser.Username; } }
+        public string Fullname { get { return currentUser.Lastname + ", " + currentUser.Firstname; } }
+        public UserPermissions UserPermissions {get { return currentUser.UserPermission; }}
 
         
 
-        internal static User DatabaseUser;
+        internal static User currentUser;
         private static List<ICurrentUserSubscriber> subscribers = new List<ICurrentUserSubscriber>();
 
         private CurrentUser()
@@ -25,7 +26,7 @@ namespace Database
 
         internal static void SetCurrentUser(User user)
         {
-            DatabaseUser = user;
+            currentUser = user;
             var newCurrentUser = user != null ? new CurrentUser() : null;
 
             foreach (var subscriber in subscribers)

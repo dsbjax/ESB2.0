@@ -43,7 +43,7 @@ namespace Database.DatabaseControls
             selected.Updates.Add(new OutageUpdate()
             {
                 Timestamp = DateTime.Now,
-                UpdateBy = CurrentUser.DatabaseUser,
+                UpdateBy = CurrentUser.currentUser,
                 Update = newOutageUpdate.Text,
             });
             selected.Completed = (bool)completed.IsChecked;
@@ -125,7 +125,7 @@ namespace Database.DatabaseControls
             ((Outage)scheduledOutages.SelectedItem).Updates.Add(new OutageUpdate()
             {
                 Timestamp = DateTime.Now,
-                UpdateBy = CurrentUser.DatabaseUser,
+                UpdateBy = CurrentUser.currentUser,
                 Update = "Event Canceled"
             });
 
@@ -142,7 +142,7 @@ namespace Database.DatabaseControls
             ((Outage)scheduledOutages.SelectedItem).Updates.Add(new OutageUpdate()
             {
                 Timestamp = DateTime.Now,
-                UpdateBy = CurrentUser.DatabaseUser,
+                UpdateBy = CurrentUser.currentUser,
                 Update = "Event Completed"
             });
 
@@ -172,7 +172,7 @@ namespace Database.DatabaseControls
             outage.Updates.Add(new OutageUpdate()
             {
                 Timestamp = DateTime.Now,
-                UpdateBy = CurrentUser.DatabaseUser,
+                UpdateBy = CurrentUser.currentUser,
                 Update = "Event Modified."
             });
 

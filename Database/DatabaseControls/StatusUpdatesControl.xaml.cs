@@ -189,7 +189,7 @@ namespace Database.DatabaseControls
                     Start = CreateTimestamp(startDate.Text, startTime.Text),
                     Completed = false,
                     Canceled = false,
-                    CreatedBy = database.Users.First(u=> u.Id == CurrentUser.DatabaseUser.Id)
+                    CreatedBy = database.Users.First(u=> u.Id == CurrentUser.currentUser.Id)
                 };
 
             if (newOutage.OutageType == OutageType.ScheduledMaintenance)

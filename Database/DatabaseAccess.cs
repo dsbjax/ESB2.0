@@ -11,6 +11,7 @@ using System.Windows.Controls;
 
 namespace Database
 {
+    // This classs is used to access the database for the status board program
     public static class DatabaseAccess
     {
         private static ESB2DatabaseContainer database = ESB2db.GetDatabase();
@@ -36,9 +37,16 @@ namespace Database
 
 
         #region Login/Logout
+        // Accounts will reset after password failure lockout in minutes
         private static readonly double ACCOUNT_RESET_TIMESPAN = 15;
+        private static readonly string DEFAULT_PASSWORD = "password123";
+
+
         public static void Login()
         {
+            if (CurrentUser.currentUser != null)
+                return;
+
             var dialog = new LoginDialog();
 
             if ((bool)dialog.ShowDialog())
@@ -145,32 +153,27 @@ namespace Database
             }
         }
 
-        public static List<UserLogEvent> GetUserEventsLog()
-        {
-            return database.UserLog.OrderBy(l => l.Timestamp).ToList();
-        }
-
-        public static IEnumerable GetUserEvents()
-        {
-            return null;
-        }
-
-        internal static void ResetPassword(User selectedItem)
-        {
-            database.Users.First(u => u.Id == selectedItem.Id).Password = PasswordHasher.HashPassword(selectedItem.Username, "password123");
-            Save();
-        }
-
-        internal static void SetPassword(User selectedItem, string password)
-        {
-            database.Users.First(u => u.Id == selectedItem.Id).Password = PasswordHasher.HashPassword(selectedItem.Username, password);
-            Save();
-        }
 
         public static StatusPage UpdateStatusPage(int statusPageId)
         {
             return database.StatusPages.First(p => p.Id == statusPageId);
         }
+
+
+        public static void Logout()
+        {
+            if(CurrentUser.currentUser != null)
+                database.UserLog.Add(new UserLogEvent()
+                {
+                    Timestamp = DateTime.Now,
+                    User = CurrentUser.currentUser,
+                    UserEvent = UserEvents.UserLogin
+                });
+
+            Save();
+            CurrentUser.SetCurrentUser(null);
+        }
+        #endregion
 
         private static ObservableCollection<StatusPage> allStatusPages = new ObservableCollection<StatusPage>();
         public static ObservableCollection<StatusPage> GetAllStatusPages()
@@ -186,24 +189,10 @@ namespace Database
 
             foreach (var page in pages)
                 allStatusPages.Add(page);
-            
+
             return allStatusPages;
         }
 
-        public static void Logout()
-        {
-            if(CurrentUser.DatabaseUser != null)
-                database.UserLog.Add(new UserLogEvent()
-                {
-                    Timestamp = DateTime.Now,
-                    User = CurrentUser.DatabaseUser,
-                    UserEvent = UserEvents.UserLogin
-                });
-
-            Save();
-            CurrentUser.SetCurrentUser(null);
-        }
-        #endregion
 
         #region User Control
         private static ObservableCollection<User> userList = new ObservableCollection<User>();
@@ -227,6 +216,30 @@ namespace Database
             foreach (var user in database.Users.OrderBy(u => u.Firstname).OrderBy(u => u.Lastname))
                 userList.Add(user);
         }
+
+        public static List<UserLogEvent> GetUserEventsLog()
+        {
+            return database.UserLog.OrderBy(l => l.Timestamp).ToList();
+        }
+
+        // To be implemented
+        public static IEnumerable GetUserEvents()
+        {
+            return null;
+        }
+
+        internal static void ResetPassword(User selectedItem)
+        {
+            database.Users.First(u => u.Id == selectedItem.Id).Password = PasswordHasher.HashPassword(selectedItem.Username, DEFAULT_PASSWORD);
+            Save();
+        }
+
+        internal static void SetPassword(User selectedItem, string password)
+        {
+            database.Users.First(u => u.Id == selectedItem.Id).Password = PasswordHasher.HashPassword(selectedItem.Username, password);
+            Save();
+        }
+
 
         private static void NewUserRequestHandler(object sender, NewUSerEventArgs e)
         {
@@ -259,6 +272,7 @@ namespace Database
                 RefreshUserList();
             }
         }
+        #endregion
 
         public static void DeletePageGrouping(StatusPageGrouping selectedItem)
         {
@@ -276,7 +290,6 @@ namespace Database
         {
             return database.StatusPages.Max(p => p.Index);
         }
-        #endregion
 
         #region Equipment Manager
         private static ObservableCollection<EquipmentSystem> systemList = new ObservableCollection<EquipmentSystem>();
