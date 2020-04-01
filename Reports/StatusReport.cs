@@ -104,7 +104,7 @@ namespace Reports
             {
                 foreach (var outage in active)
                 {
-                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm UTC") + "\t" +
                         outage.Title + ": " + outage.Description + "\nEquipment: ";
 
                     foreach (var eq in outage.Equipment)
@@ -140,7 +140,7 @@ namespace Reports
             {
                 foreach (var outage in today)
                 {
-                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm UTC") + "\t" +
                         outage.Title + ": " + outage.Description + "\nEquipment: ";
 
                     foreach (var eq in outage.Equipment)
@@ -177,7 +177,7 @@ namespace Reports
             {
                 foreach (var outage in tomorrow)
                 {
-                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm UTC") + "\t" +
                         outage.Title + ": " + outage.Description + "\nEquipment: ";
 
                     foreach (var eq in outage.Equipment)
@@ -213,7 +213,7 @@ namespace Reports
             {
                 foreach (var outage in next7Days)
                 {
-                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm Z") + "\t" +
+                    var text = outage.Start.ToString("MM/dd HH:mm - ") + outage.End.Value.ToString("MM/dd HH:mm UTC") + "\t" +
                         outage.Title + ": " + outage.Description + "\nEquipment: ";
 
                     foreach (var eq in outage.Equipment)
